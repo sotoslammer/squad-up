@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "migrate:dev": "npx prisma migrate dev --preview-feature"
+  },
   "dependencies": {
     "prisma": "^2.18.0",
     "typescript": "^4.2.3"

@@ -7,18 +7,19 @@ datasource db {
 }
 
 model Superhero {
-    id          Int @id @default(autoincrement())
-    name        String
-    alterEgo    String
-    stamina     Int
-    speed       Int
-    size        Int
-    threat      Int
-    physicalD   Int
-    energyD     Int
-    mysticD     Int
-    attacks     Attack[]
-    superPowers SuperPower[]
+    id              Int @id @default(autoincrement())
+    name            String
+    alterEgo        String
+    stamina         Int
+    speed           Int
+    size            Int
+    threat          Int
+    physicalD       Int
+    energyD         Int
+    mysticD         Int
+    attacks         Attack[]
+    superPowers     SuperPower[]
+    affiliations    Affiliation[]
 }
 
 enum AttackType {
@@ -52,4 +53,47 @@ model SuperPower {
     type        SuperPowerType
     description String
     superhero   Superhero @relation(fields: [superheroId], references: [id])
+}
+
+model Affiliation {
+    id          Int @id @default(autoincrement())
+    name        String
+    superheros  Superhero[]
+}
+
+enum CrisisType {
+    EXTRACT
+    SECURE
+}
+
+enum Map {
+    A
+    B
+    C
+    D
+    E
+    F
+}
+
+model Crisis {
+    id      Int @id @default(autoincrement())
+    type    CrisisType
+    threat  Int
+    name    String
+    map     Map
+    setup   String
+    scoring String
+    rules   String[]
+}
+
+enum TacticType {
+    ACTIVE
+    REACTIVE
+}
+
+model Tactic {
+    id          Int @id @default(autoincrement())
+    name        String
+    type        TacticType
+    description String
 }
