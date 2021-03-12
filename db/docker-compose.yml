@@ -2,8 +2,9 @@ version: '3'
 services:
   database:
     image: 'postgres'
+    container_name: 'squad_up_db'
     ports:
-      - "5432:5432"
+      - 5432:5432
     env_file:
       - database.env
     volumes:
