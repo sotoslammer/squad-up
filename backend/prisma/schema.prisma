@@ -1,0 +1,55 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Superhero {
+    id          Int @id @default(autoincrement())
+    name        String
+    alterEgo    String
+    stamina     Int
+    speed       Int
+    size        Int
+    threat      Int
+    physicalD   Int
+    energyD     Int
+    mysticD     Int
+    attacks     Attack[]
+    superPowers SuperPower[]
+}
+
+enum AttackType {
+    PHYSICAL
+    ENERGY
+    MYSTIC
+}
+
+model Attack {
+    id          Int @id @default(autoincrement())
+    superheroId Int
+    name        String
+    type        AttackType
+    range       String
+    strength    String
+    power       Int @default(0)
+    superhero   Superhero @relation(fields: [superheroId], references: [id])
+}
+
+enum SuperPowerType {
+    ACTIVE
+    REACTIVE
+    INNATE
+}
+
+model SuperPower {
+    id          Int @id @default(autoincrement())
+    superheroId Int
+    name        String
+    cost        Int
+    type        SuperPowerType
+    description String
+    superhero   Superhero @relation(fields: [superheroId], references: [id])
+}

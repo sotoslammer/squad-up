@@ -45,4 +45,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-/db/database.env
+/backend/database.env
+backend/node_modules
+backend/.env
