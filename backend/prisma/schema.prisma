@@ -11,6 +11,7 @@ model Superhero {
     name            String
     alterEgo        String
     stamina         Int
+    staminaInjured  Int
     speed           Int
     size            Int
     threat          Int
@@ -37,6 +38,8 @@ model Attack {
     strength    String
     power       Int @default(0)
     effects     String[]
+    healthy     Boolean
+    injured     Boolean
     superhero   Superhero @relation(fields: [superheroId], references: [id])
 }
 
@@ -44,15 +47,18 @@ enum SuperPowerType {
     ACTIVE
     REACTIVE
     INNATE
+    LEADERSHIP
 }
 
 model SuperPower {
     id          Int @id @default(autoincrement())
     superheroId Int
     name        String
-    cost        Int
+    power       String?
     type        SuperPowerType
-    effect      String
+    effect      String?
+    healthy     Boolean
+    injured     Boolean
     superhero   Superhero @relation(fields: [superheroId], references: [id])
 }
 
