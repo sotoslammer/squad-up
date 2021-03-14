@@ -1,4 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:squadup/screens/database.dart';
+import 'dart:io';
+
+import 'package:squadup/screens/rosters.dart';
+import 'package:squadup/widgets/TabScreen.dart';
 
 void main() {
   runApp(MyApp());
@@ -22,7 +28,7 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MyHomePage(title: 'Rosters'),
     );
   }
 }
@@ -47,6 +53,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  final GlobalKey<NavigatorState> firstTabNavKey = GlobalKey<NavigatorState>();
+  final GlobalKey<NavigatorState> secondTabNavKey = GlobalKey<NavigatorState>();
+  final CupertinoTabController _tabController = CupertinoTabController();
 
   void _incrementCounter() {
     setState(() {
@@ -67,6 +76,43 @@ class _MyHomePageState extends State<MyHomePage> {
     // The Flutter framework has been optimized to make rerunning build methods
     // fast, so that you can just rebuild anything that needs updating rather
     // than having to individually change instances of widgets.
+    if (Platform.isIOS) {
+      return CupertinoTabScaffold(
+        controller: _tabController,
+        tabBar: _createTabBar(),
+        tabBuilder: (BuildContext context, int index) {
+          Widget tabPage;
+          GlobalKey<NavigatorState> navKey;
+          String label;
+          switch (index) {
+            case 0:
+              navKey= firstTabNavKey;
+              label = 'Rosters';
+              tabPage = Rosters();
+              break;
+            case 1:
+              navKey = secondTabNavKey;
+              label = 'Database';
+              tabPage = Database();
+              break;
+            default:
+              tabPage = const Center(
+                child: Text('Invalid page.'),
+              );
+              break;
+          }
+          return Material(
+            type: MaterialType.transparency,
+            child: TabScreen(
+              navKey: navKey,
+              number: index + 1,
+              label: label,
+              child: tabPage
+            ),
+          );
+        },
+      );
+    }
     return Scaffold(
       appBar: AppBar(
         // Here we take the value from the MyHomePage object that was created by
@@ -108,6 +154,22 @@ class _MyHomePageState extends State<MyHomePage> {
         tooltip: 'Increment',
         child: Icon(Icons.add),
       ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+  CupertinoTabBar _createTabBar() {
+    return CupertinoTabBar(
+      items: const <BottomNavigationBarItem>[
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.star),
+          activeIcon: Icon(CupertinoIcons.star_fill),
+          label: 'Rosters',
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(CupertinoIcons.square_list),
+          activeIcon: Icon(CupertinoIcons.square_list_fill),
+          label: 'Database'
+        ),
+      ],
     );
   }
 }
