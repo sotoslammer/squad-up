@@ -36,6 +36,7 @@ model Attack {
     range       String
     strength    String
     power       Int @default(0)
+    effects     String[]
     superhero   Superhero @relation(fields: [superheroId], references: [id])
 }
 
@@ -51,7 +52,7 @@ model SuperPower {
     name        String
     cost        Int
     type        SuperPowerType
-    effects     String[]
+    effect      String
     superhero   Superhero @relation(fields: [superheroId], references: [id])
 }
 
