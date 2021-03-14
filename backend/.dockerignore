@@ -8,3 +8,4 @@
 !tsconfig.json
 !.env
 !database.env
+!postgraphile.tags.json5

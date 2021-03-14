@@ -1,6 +1,8 @@
 import express from "express";
 import bodyParser from "body-parser";
 import {postgraphile} from "postgraphile"
+import {TagsFilePlugin} from "postgraphile/plugins";
+import PostGraphileNestedMutations from "postgraphile-plugin-nested-mutations";
 import * as dotenv from 'dotenv';
 
 dotenv.config();
@@ -28,8 +30,12 @@ app.use(postgraphile(
       watchPg: true,
       graphiql: true,
       enhanceGraphiql: true,
+      graphileBuildOptions: {
+          nestedMutationsSimpleFieldNames: true,
+      },
+      appendPlugins: [TagsFilePlugin, PostGraphileNestedMutations]
   }));
 
-app.listen(port,() => {
+app.listen(port, () => {
     return console.log(`server is listening on ${port}`);
 });

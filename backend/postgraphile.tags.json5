@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "config": {
+    "class": {
+      "Superhero": {
+        "attribute": {
+          "id": {
+            "tags": {
+              omit: "create",
+            }
+          }
+        }
+      }
+    }
+  }
+}
