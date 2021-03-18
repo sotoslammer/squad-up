@@ -21,6 +21,7 @@ environment:
   sdk: ">=2.7.0 <3.0.0"
 
 dependencies:
+  flutter_bloc:  ^7.0.0-nullsafety.6
   flutter:
     sdk: flutter
 
@@ -30,6 +31,7 @@ dependencies:
   cupertino_icons: ^1.0.1
 
 dev_dependencies:
+  graphql_to_dart: 1.0.0
   flutter_test:
     sdk: flutter
 

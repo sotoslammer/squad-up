@@ -1,0 +1,4 @@
+enum TacticType {
+  ACTIVE,
+  REACTIVE
+}

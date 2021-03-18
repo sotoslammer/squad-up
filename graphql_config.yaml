@@ -1,0 +1,5 @@
+package_name: squadup
+graphql_endpoint: http://localhost:8080/graphql
+models_directory_path: lib/models/
+type_override:
+  id: int
