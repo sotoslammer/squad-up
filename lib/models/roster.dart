@@ -48,6 +48,6 @@ class Roster {
   }
 
   void removeCrisisCard(int idx) {
-    crisisCards[idx] = null
+    crisisCards[idx] = null;
   }
 }
