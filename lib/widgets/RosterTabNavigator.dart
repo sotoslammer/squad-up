@@ -12,7 +12,7 @@ class RostersTabNavigator extends StatelessWidget {
 
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
-      RosterTabRoutes.root: (context) => Rosters(),
+      RosterTabRoutes.root: (context) => RostersScreen(),
     };
   }
 

@@ -1,5 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:hive/hive.dart';
+import 'package:hive_flutter/hive_flutter.dart';
+import 'package:squadup/get_it.dart';
+import 'package:squadup/repository/rosters/constants.dart';
+import 'package:squadup/repository/rosters/entity.dart';
 import 'package:squadup/screens/database.dart';
 
 import 'package:squadup/widgets/BottomNavigation.dart';
@@ -7,7 +12,10 @@ import 'package:squadup/widgets/RosterTabNavigator.dart';
 
 import 'nav_tabs.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  await Hive.openBox<RosterEntity>(rostersBox);
+  getServices();
   runApp(SquadUpApp());
 }
 

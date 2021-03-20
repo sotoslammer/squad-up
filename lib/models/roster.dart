@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:squadup/models/crisis.dart';
 import 'package:squadup/models/crisis_type.dart';
 import 'package:squadup/models/superhero.dart';
@@ -18,6 +16,8 @@ class Roster {
   static int secureLimit = 3;
 
   Roster({this.id, this.name});
+
+  List<Object> get props => [id, name, superHeroes, crisisCards, tacticCards];
 
   get extractCards =>
       crisisCards.where((element) => element.type == CrisisType.EXTRACT)

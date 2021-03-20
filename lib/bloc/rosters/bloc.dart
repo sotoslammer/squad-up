@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:squadup/get_it.dart';
 import 'package:squadup/models/roster.dart';
 import 'package:squadup/repository/rosters/rosters_repository.dart';
 import 'state.dart';
@@ -8,9 +9,9 @@ import 'state.dart';
 import 'event.dart';
 
 class RostersBloc extends Bloc<RostersEvent, RostersState> {
-  final RostersRepository repo;
+  final RostersRepository repo = getIt.get<RostersRepository>();
 
-  RostersBloc(this.repo) : super(RostersLoadInProgress());
+  RostersBloc() : super(RostersLoadInProgress());
 
   @override
   Stream<RostersState> mapEventToState(RostersEvent event) async* {
