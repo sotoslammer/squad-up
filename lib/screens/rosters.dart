@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/rosters/rosters.dart';
 import 'package:squadup/get_it.dart';
+import 'package:squadup/models/roster.dart';
+import 'package:squadup/util.dart';
+import 'package:squadup/widgets/roster_create.dart';
 import 'package:squadup/widgets/roster_tab_navigator.dart';
 import 'package:squadup/widgets/rosters_list.dart';
 import 'package:squadup/widgets/error.dart';
@@ -13,9 +16,7 @@ class RostersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (BuildContext context) =>
-        getIt.get<RostersBloc>()
-          ..add(RostersLoad()),
+        create: (BuildContext context) => rostersBloc..add(RostersLoad()),
         child: Rosters(bloc: rostersBloc));
   }
 }
@@ -34,6 +35,10 @@ class _RostersState extends State<Rosters> {
     widget.bloc.add(RostersLoad());
   }
 
+  void goToEditor(BuildContext context) {
+    Navigator.pushNamed(context, RosterTabRoutes.editor);
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RostersBloc, RostersState>(builder: (context, state) {
@@ -50,15 +55,9 @@ class _RostersState extends State<Rosters> {
 
       return SafeArea(
           child: Scaffold(
-            body: body,
-            floatingActionButton: FloatingActionButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, RosterTabRoutes.editor);
-                  },
-                child: Icon(Icons.add),
-            ),
-          )
-      );
+        body: body,
+        floatingActionButton: RosterCreateButton(),
+      ));
     });
   }
 }

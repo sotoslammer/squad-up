@@ -10,18 +10,6 @@ abstract class RostersEvent extends Equatable {
 
 class RostersLoad extends RostersEvent {}
 
-class RosterAdded extends RostersEvent {
-  final Roster roster;
-
-  const RosterAdded(this.roster);
-
-  @override
-  List<Object> get props => [roster];
-
-  @override
-  String toString() => 'RosterAdded { roster: $roster }';
-}
-
 class RosterUpdated extends RostersEvent {
   final Roster roster;
 

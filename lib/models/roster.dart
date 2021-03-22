@@ -5,7 +5,7 @@ import 'package:squadup/models/tactic.dart';
 
 class Roster {
   String id;
-  String name;
+  String name = "";
   List<Superhero> superHeroes = List.filled(heroLimit, null);
   List<Tactic> tacticCards = List.filled(tacticLimit, null);
   List<Crisis> crisisCards = List.filled(extractLimit + secureLimit, null);

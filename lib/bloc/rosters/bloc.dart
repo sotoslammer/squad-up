@@ -17,8 +17,6 @@ class RostersBloc extends Bloc<RostersEvent, RostersState> {
   Stream<RostersState> mapEventToState(RostersEvent event) async* {
     if (event is RostersLoad) {
       yield* _mapRostersLoadToState(event);
-    } else if (event is RosterAdded) {
-      yield* _mapRosterAddedToState(event);
     } else if (event is RosterRemoved) {
       yield* _mapRosterRemovedToStated(event);
     }
@@ -34,21 +32,13 @@ class RostersBloc extends Bloc<RostersEvent, RostersState> {
     }
   }
 
-  Stream<RostersState> _mapRosterAddedToState(RosterAdded event) async* {
-    if (state is RostersLoadSuccess) {
-      await repo.addNewRoster(event.roster);
-      final List<Roster> updatedRosters =
-      ((state as RostersLoadSuccess).rosters)
-        ..add(event.roster);
-      yield RostersLoadSuccess(updatedRosters);
-    }
-  }
-
   Stream<RostersState> _mapRosterRemovedToStated(RosterRemoved event) async* {
     if (state is RostersLoadSuccess) {
       await repo.removeRoster(event.roster);
-      final List<Roster> updatedRosters = ((state as RostersLoadSuccess)
-          .rosters).where((r) => r.id != event.roster.id).toList();
+      final List<Roster> updatedRosters =
+          ((state as RostersLoadSuccess).rosters)
+              .where((r) => r.id != event.roster.id)
+              .toList();
       yield RostersLoadSuccess(updatedRosters);
     }
   }
