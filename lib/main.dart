@@ -7,8 +7,8 @@ import 'package:squadup/repository/rosters/constants.dart';
 import 'package:squadup/repository/rosters/entity.dart';
 import 'package:squadup/screens/database.dart';
 
-import 'package:squadup/widgets/BottomNavigation.dart';
-import 'package:squadup/widgets/RosterTabNavigator.dart';
+import 'package:squadup/widgets/bottom_navigation.dart';
+import 'package:squadup/widgets/roster_tab_navigator.dart';
 
 import 'nav_tabs.dart';
 

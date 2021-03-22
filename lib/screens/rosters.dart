@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/rosters/rosters.dart';
 import 'package:squadup/get_it.dart';
-import 'package:squadup/widgets/RosterTabNavigator.dart';
-import 'package:squadup/widgets/RostersList.dart';
+import 'package:squadup/widgets/roster_tab_navigator.dart';
+import 'package:squadup/widgets/rosters_list.dart';
 import 'package:squadup/widgets/error.dart';
 
 class RostersScreen extends StatelessWidget {
