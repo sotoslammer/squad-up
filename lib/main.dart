@@ -35,6 +35,11 @@ class SquadUpApp extends StatelessWidget {
               titleTextStyle: TextStyle(color: Colors.white),
               iconTheme: IconThemeData(color: Colors.white)
           ),
+          primaryTextTheme: TextTheme(
+            headline6: TextStyle(
+              color: Colors.white
+            )
+          )
       ),
       home: App(),
     );

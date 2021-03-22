@@ -7,7 +7,7 @@ class RosterEditor extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar:
-          AppBar(title: Text("Editor", style: TextStyle(color: Colors.white))),
+          AppBar(title: Text("Editor")),
     ));
   }
 }
