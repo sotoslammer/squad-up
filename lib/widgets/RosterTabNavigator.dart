@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+import 'package:squadup/screens/roster_editor.dart';
 import 'package:squadup/screens/rosters.dart';
 
 class RosterTabRoutes {
   static const String root = '/';
+  static const String editor = "/edit";
 }
 
 class RostersTabNavigator extends StatelessWidget {
@@ -13,6 +15,7 @@ class RostersTabNavigator extends StatelessWidget {
   Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
     return {
       RosterTabRoutes.root: (context) => RostersScreen(),
+      RosterTabRoutes.editor: (context) => RosterEditor(),
     };
   }
 

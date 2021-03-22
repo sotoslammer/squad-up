@@ -26,7 +26,15 @@ class SquadUpApp extends StatelessWidget {
     return MaterialApp(
       title: 'Squad Up',
       theme: ThemeData(
-        primarySwatch: Colors.lightBlue,
+          primarySwatch: Colors.lightBlue,
+          floatingActionButtonTheme: FloatingActionButtonThemeData(
+              backgroundColor: Colors.lightBlue, foregroundColor: Colors.white),
+          appBarTheme: AppBarTheme(
+              backgroundColor: Colors.lightBlue,
+              foregroundColor: Colors.white,
+              titleTextStyle: TextStyle(color: Colors.white),
+              iconTheme: IconThemeData(color: Colors.white)
+          ),
       ),
       home: App(),
     );
