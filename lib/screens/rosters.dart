@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/rosters/rosters.dart';
 import 'package:squadup/get_it.dart';
 import 'package:squadup/models/roster.dart';
-import 'package:squadup/util.dart';
 import 'package:squadup/widgets/roster_create.dart';
 import 'package:squadup/widgets/roster_tab_navigator.dart';
 import 'package:squadup/widgets/rosters_list.dart';
@@ -33,10 +32,6 @@ class Rosters extends StatefulWidget {
 class _RostersState extends State<Rosters> {
   void loadRosters() {
     widget.bloc.add(RostersLoad());
-  }
-
-  void goToEditor(BuildContext context) {
-    Navigator.pushNamed(context, RosterTabRoutes.editor);
   }
 
   @override

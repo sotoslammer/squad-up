@@ -36,27 +36,28 @@ class _RosterCreateState extends State<RosterCreate> {
   Widget build(BuildContext context) {
     return BlocConsumer<RosterAddedBloc, RosterAddedState>(
         listener: (context, state) {
-          if (state is RosterAddedSuccess) {
-            widget.bloc.add(RosterAddedReset());
-            Navigator.pushNamed(context, RosterTabRoutes.editor);
-          }
-        },
-        builder: (context, state) {
-          if (state is RosterAddedInProgress) {
-            return FabLoader(
-                child: FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)));
-          } else if (state is RosterAddedSuccess) {
-            return FloatingActionButton(
-              onPressed: () {},
-              child: Icon(Icons.check),
-              backgroundColor: Colors.green,
-            );
-          }
-          return FloatingActionButton(
-            onPressed: create,
-            child: Icon(Icons.add),
-          );
-        });
+      if (state is RosterAddedSuccess) {
+        widget.bloc.add(RosterAddedReset());
+        Navigator.pushNamed(context, RosterTabRoutes.builder,
+            arguments: state.roster);
+      }
+    }, builder: (context, state) {
+      if (state is RosterAddedInProgress) {
+        return FabLoader(
+            child:
+                FloatingActionButton(onPressed: () {}, child: Icon(Icons.add)));
+      } else if (state is RosterAddedSuccess) {
+        return FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.check),
+          backgroundColor: Colors.green,
+        );
+      }
+      return FloatingActionButton(
+        onPressed: create,
+        child: Icon(Icons.add),
+      );
+    });
   }
 
   void create() {
