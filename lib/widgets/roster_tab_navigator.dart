@@ -9,14 +9,14 @@ class RosterTabRoutes {
 }
 
 class RostersTabNavigator extends StatelessWidget {
-  RostersTabNavigator({this.navigatorKey});
+  RostersTabNavigator({@required this.navigatorKey});
 
   final GlobalKey<NavigatorState> navigatorKey;
 
-  Map<String, WidgetBuilder> _routeBuilders(BuildContext context) {
+  Map<String, Widget> _routeBuilders(BuildContext context) {
     return {
-      RosterTabRoutes.root: (context) => RostersScreen(),
-      RosterTabRoutes.builder: (context) => BuilderScreen(),
+      RosterTabRoutes.root: RostersScreen(),
+      RosterTabRoutes.builder: BuilderScreen(),
     };
   }
 
@@ -27,8 +27,9 @@ class RostersTabNavigator extends StatelessWidget {
       key: navigatorKey,
       initialRoute: RosterTabRoutes.root,
       onGenerateRoute: (routeSettings) {
+        var route = routeBuilders[routeSettings.name];
         return MaterialPageRoute(
-            builder: (context) => routeBuilders[routeSettings.name](context),
+            builder: (context) => route,
             settings: RouteSettings(arguments: routeSettings.arguments));
       },
     );

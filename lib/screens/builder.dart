@@ -1,6 +1,5 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/roster_builder/bloc.dart';
 import 'package:squadup/bloc/roster_builder/event.dart';
@@ -14,9 +13,9 @@ class BuilderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var roster = ModalRoute.of(context).settings.arguments;
+    Roster/*!*/ roster = ModalRoute.of(context).settings.arguments;
     return BlocProvider(
-        create: (BuildContext context) => builderBloc..add(SetRoster(roster)),
+        create: (BuildContext context) => builderBloc..add(SetRoster(roster: roster)),
         child: Builder(bloc: builderBloc));
   }
 }
@@ -24,7 +23,7 @@ class BuilderScreen extends StatelessWidget {
 class Builder extends StatefulWidget {
   final RosterBuilderBloc bloc;
 
-  Builder({this.bloc});
+  Builder({@required this.bloc});
 
   @override
   State<StatefulWidget> createState() => BuilderState();
@@ -43,7 +42,7 @@ class BuilderState extends State<Builder> {
   Widget build(BuildContext context) {
     return BlocBuilder<RosterBuilderBloc, RosterBuilderState>(
         builder: (context, state) {
-      Widget body;
+      Widget body = Container();
       if (state is BuildingRosterInit) {
         body = Center(child: CircularProgressIndicator());
       } else if (state is BuildingRoster) {

@@ -5,7 +5,7 @@ import 'package:squadup/models/roster.dart';
 class RostersList extends StatelessWidget {
   final List<Roster> rosters;
 
-  const RostersList({Key key, this.rosters}) : super(key: key);
+  const RostersList({Key key, @required this.rosters}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

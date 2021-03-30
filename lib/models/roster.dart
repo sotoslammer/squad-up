@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:squadup/models/crisis.dart';
 import 'package:squadup/models/crisis_type.dart';
 import 'package:squadup/models/superhero.dart';
@@ -15,17 +16,17 @@ class Roster {
   static int extractLimit = 3;
   static int secureLimit = 3;
 
-  Roster({this.id, this.name});
+  Roster({@required this.id, this.name});
 
   List<Object> get props => [id, name, superHeroes, crisisCards, tacticCards];
 
-  get extractCards =>
-      crisisCards.where((element) => element.type == CrisisType.EXTRACT)
-          .toList();
+  get extractCards => crisisCards
+      .where((element) => element.type == CrisisType.EXTRACT)
+      .toList();
 
-  get secureCards =>
-      crisisCards.where((element) => element.type == CrisisType.SECURE)
-          .toList();
+  get secureCards => crisisCards
+      .where((element) => element.type == CrisisType.SECURE)
+      .toList();
 
   void addSuperHero(Superhero hero, int idx) {
     superHeroes[idx] = hero;

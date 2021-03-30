@@ -10,7 +10,7 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   @override
   Stream<RosterBuilderState> mapEventToState(RosterBuilderEvent event) async* {
     if (event is SetRoster) {
-      yield BuildingRoster(event.roster);
+      yield BuildingRoster(roster: event.roster);
     }
 
   }

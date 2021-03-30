@@ -23,7 +23,7 @@ class RosterCreateButton extends StatelessWidget {
 class RosterCreate extends StatefulWidget {
   final RosterAddedBloc bloc;
 
-  const RosterCreate({Key key, this.bloc}) : super(key: key);
+  const RosterCreate({Key key, @required this.bloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {

@@ -28,7 +28,7 @@ class RosterAddedBloc extends Bloc<RosterAddedEvent, RosterAddedState> {
       // final List<Roster> updatedRosters = ((state as RostersLoadSuccess)
       //     .rosters)
       //   ..add(event.roster);
-      yield RosterAddedSuccess(event.roster);
+      yield RosterAddedSuccess(roster: event.roster);
     } catch (e) {
       yield RosterAddedFailure();
     }
