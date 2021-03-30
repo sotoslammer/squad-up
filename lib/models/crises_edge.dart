@@ -2,7 +2,7 @@ import 'package:squadup/models/crisis.dart';
 
 class CrisesEdge {
   var cursor;
-  Crisis node;
+  Crisis? node;
   CrisesEdge({this.cursor, this.node});
 
   CrisesEdge.fromJson(Map<String, dynamic> json) {

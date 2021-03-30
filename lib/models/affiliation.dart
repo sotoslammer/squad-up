@@ -1,10 +1,10 @@
 import 'package:squadup/models/affiliation_to_superheroes_connection.dart';
 
 class Affiliation {
-  int nodeId;
-  int id;
-  String name;
-  AffiliationToSuperheroesConnection affiliationToSuperheroesByA;
+  int? nodeId;
+  int? id;
+  String? name;
+  AffiliationToSuperheroesConnection? affiliationToSuperheroesByA;
   Affiliation(
       {this.nodeId, this.id, this.name, this.affiliationToSuperheroesByA});
 

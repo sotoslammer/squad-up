@@ -19,9 +19,9 @@ class RostersScreen extends StatelessWidget {
 }
 
 class Rosters extends StatefulWidget {
-  final RostersBloc bloc;
+  final RostersBloc? bloc;
 
-  const Rosters({Key key, this.bloc}) : super(key: key);
+  const Rosters({Key? key, this.bloc}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _RostersState();
@@ -29,13 +29,13 @@ class Rosters extends StatefulWidget {
 
 class _RostersState extends State<Rosters> {
   void loadRosters() {
-    widget.bloc.add(RostersLoad());
+    widget.bloc!.add(RostersLoad());
   }
 
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<RostersBloc, RostersState>(builder: (context, state) {
-      Widget body;
+      Widget? body;
       if (state is RostersLoadInProgress) {
         body = Center(child: CircularProgressIndicator());
       } else if (state is RostersLoadSuccess) {

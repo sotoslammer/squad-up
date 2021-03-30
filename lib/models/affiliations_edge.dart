@@ -2,7 +2,7 @@ import 'package:squadup/models/affiliation.dart';
 
 class AffiliationsEdge {
   var cursor;
-  Affiliation node;
+  Affiliation? node;
   AffiliationsEdge({this.cursor, this.node});
 
   AffiliationsEdge.fromJson(Map<String, dynamic> json) {

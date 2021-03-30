@@ -2,7 +2,7 @@ import 'package:squadup/models/superhero.dart';
 
 class SuperheroesEdge {
   var cursor;
-  Superhero node;
+  Superhero? node;
   SuperheroesEdge({this.cursor, this.node});
 
   SuperheroesEdge.fromJson(Map<String, dynamic> json) {

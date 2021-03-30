@@ -2,10 +2,10 @@ import 'package:squadup/models/affiliation.dart';
 import 'package:squadup/models/superhero.dart';
 
 class AffiliationToSuperhero {
-  int a;
-  int b;
-  Affiliation affiliationByA;
-  Superhero superheroByB;
+  int? a;
+  int? b;
+  Affiliation? affiliationByA;
+  Superhero? superheroByB;
   AffiliationToSuperhero(
       {this.a, this.b, this.affiliationByA, this.superheroByB});
 

@@ -8,7 +8,7 @@ class BottomNavigation extends StatelessWidget {
   final ValueChanged<TabItem> onSelectTab;
 
   const BottomNavigation(
-      {Key key, @required this.currentTab, @required this.onSelectTab})
+      {Key? key, required this.currentTab, required this.onSelectTab})
       : super(key: key);
 
   @override
@@ -27,7 +27,7 @@ class BottomNavigation extends StatelessWidget {
   }
 
   BottomNavigationBarItem _buildItem(TabItem tabItem) {
-    final NavTab tab = tabName[tabItem];
+    final NavTab tab = tabName[tabItem]!;
     return BottomNavigationBarItem(
       icon: Icon(
         tab.icon,

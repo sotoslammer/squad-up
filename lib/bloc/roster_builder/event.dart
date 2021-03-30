@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:squadup/models/roster.dart';
 
 abstract class RosterBuilderEvent extends Equatable {
@@ -12,7 +11,7 @@ abstract class RosterBuilderEvent extends Equatable {
 class SetRoster extends RosterBuilderEvent {
   final Roster roster;
 
-  const SetRoster({@required this.roster});
+  const SetRoster({required this.roster});
 
   @override
   List<Object> get props => [roster];

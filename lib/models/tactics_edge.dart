@@ -2,7 +2,7 @@ import 'package:squadup/models/tactic.dart';
 
 class TacticsEdge {
   var cursor;
-  Tactic node;
+  Tactic? node;
   TacticsEdge({this.cursor, this.node});
 
   TacticsEdge.fromJson(Map<String, dynamic> json) {

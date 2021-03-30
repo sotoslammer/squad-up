@@ -1,5 +1,5 @@
 class Node {
-  int nodeId;
+  int? nodeId;
   Node({this.nodeId});
 
   Node.fromJson(Map<String, dynamic> json) {

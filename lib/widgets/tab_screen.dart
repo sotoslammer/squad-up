@@ -8,11 +8,11 @@ class TabScreen extends StatelessWidget {
   final String label;
 
   const TabScreen(
-      {Key key,
-      @required this.number,
-      @required this.navKey,
-      @required this.child,
-      @required this.label})
+      {Key? key,
+      required this.number,
+      required this.navKey,
+      required this.child,
+      required this.label})
       : super(key: key);
 
   @override

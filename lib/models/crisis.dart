@@ -3,15 +3,15 @@ import 'package:squadup/models/map.dart';
 import 'package:squadup/util.dart';
 
 class Crisis {
-  int nodeId;
-  int id;
-  CrisisType type;
-  int threat;
-  String name;
-  MapType map;
-  String setup;
-  String scoring;
-  List<String> rules;
+  int? nodeId;
+  int? id;
+  CrisisType? type;
+  int? threat;
+  String? name;
+  MapType? map;
+  String? setup;
+  String? scoring;
+  List<String>? rules;
   Crisis(
       {this.nodeId,
       this.id,

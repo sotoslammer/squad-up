@@ -2,7 +2,7 @@ import 'package:squadup/models/attack.dart';
 
 class AttacksEdge {
   var cursor;
-  Attack node;
+  Attack? node;
   AttacksEdge({this.cursor, this.node});
 
   AttacksEdge.fromJson(Map<String, dynamic> json) {

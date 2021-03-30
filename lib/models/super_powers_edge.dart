@@ -2,7 +2,7 @@ import 'package:squadup/models/super_power.dart';
 
 class SuperPowersEdge {
   var cursor;
-  SuperPower node;
+  SuperPower? node;
   SuperPowersEdge({this.cursor, this.node});
 
   SuperPowersEdge.fromJson(Map<String, dynamic> json) {

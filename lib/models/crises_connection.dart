@@ -3,10 +3,10 @@ import 'package:squadup/models/crises_edge.dart';
 import 'package:squadup/models/page_info.dart';
 
 class CrisesConnection {
-  List<Crisis> nodes;
-  List<CrisesEdge> edges;
-  PageInfo pageInfo;
-  int totalCount;
+  List<Crisis>? nodes;
+  List<CrisesEdge>? edges;
+  PageInfo? pageInfo;
+  int? totalCount;
   CrisesConnection({this.nodes, this.edges, this.pageInfo, this.totalCount});
 
   CrisesConnection.fromJson(Map<String, dynamic> json) {
@@ -26,9 +26,9 @@ class CrisesConnection {
   Map toJson() {
     Map data = {};
     data['nodes'] =
-        List.generate(nodes?.length ?? 0, (index) => nodes[index].toJson());
+        List.generate(nodes?.length ?? 0, (index) => nodes![index].toJson());
     data['edges'] =
-        List.generate(edges?.length ?? 0, (index) => edges[index].toJson());
+        List.generate(edges?.length ?? 0, (index) => edges![index].toJson());
     data['pageInfo'] = pageInfo?.toJson();
     data['totalCount'] = totalCount;
     return data;

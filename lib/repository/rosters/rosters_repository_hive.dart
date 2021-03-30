@@ -17,7 +17,7 @@ class RostersRepositoryHive extends RostersRepository {
   }
 
   @override
-  Future<void> removeRoster(Roster roster) {
+  Future<void>? removeRoster(Roster roster) {
     if (rosters.containsKey(roster.id)) {
       rosters.delete(roster.id);
     }

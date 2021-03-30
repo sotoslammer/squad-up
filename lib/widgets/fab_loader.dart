@@ -13,17 +13,13 @@ class FabLoader extends StatefulWidget {
     this.color = Colors.orange,
     this.backgroundColor = Colors.transparent,
     this.strokeWidth = 4,
-    @required this.child,
-  })  : assert(color != null),
-        assert(backgroundColor != null),
-        assert(strokeWidth != null),
-        assert(child != null);
+    required this.child,
+  });
 
   @override
   State<StatefulWidget> createState() {
     return _FabLoadingState(strokeWidth: strokeWidth, child: child);
   }
-
 }
 
 // Arc head will be lead by this Tween curve. This is for the first half of the
@@ -53,9 +49,9 @@ class _FabLoadingState extends State<FabLoader>
   final Widget child;
   final double strokeWidth;
 
-  AnimationController _controller;
+  late AnimationController _controller;
 
-  _FabLoadingState({@required this.strokeWidth, @required this.child});
+  _FabLoadingState({required this.strokeWidth, required this.child});
 
   @override
   void initState() {
@@ -101,7 +97,7 @@ class _FabLoadingState extends State<FabLoader>
   Widget build(BuildContext context) {
     return AnimatedBuilder(
       animation: _controller,
-      builder: (BuildContext context, Widget child) {
+      builder: (BuildContext context, Widget? child) {
         return _buildIndicator(
           _kStrokeHeadTween.evaluate(_controller),
           _kStrokeTailTween.evaluate(_controller),

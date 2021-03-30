@@ -3,18 +3,18 @@ import 'package:squadup/models/superhero.dart';
 import 'package:squadup/util.dart';
 
 class Attack {
-  int nodeId;
-  int id;
-  int superheroId;
-  String name;
-  AttackType type;
-  String range;
-  String strength;
-  int power;
-  List<String> effects;
-  bool healthy;
-  bool injured;
-  Superhero superheroBySuperheroId;
+  int? nodeId;
+  int? id;
+  int? superheroId;
+  String? name;
+  AttackType? type;
+  String? range;
+  String? strength;
+  int? power;
+  List<String>? effects;
+  bool? healthy;
+  bool? injured;
+  Superhero? superheroBySuperheroId;
   Attack(
       {this.nodeId,
       this.id,

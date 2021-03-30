@@ -2,11 +2,11 @@ import 'package:squadup/models/tactic_type.dart';
 import 'package:squadup/util.dart';
 
 class Tactic {
-  int nodeId;
-  int id;
-  String name;
-  TacticType type;
-  String description;
+  int? nodeId;
+  int? id;
+  String? name;
+  TacticType? type;
+  String? description;
   Tactic({this.nodeId, this.id, this.name, this.type, this.description});
 
   Tactic.fromJson(Map<String, dynamic> json) {

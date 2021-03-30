@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
 class ErrorState extends StatelessWidget {
-  final Function action;
+  final Function? action;
 
-  final IconData actionIcon;
+  final IconData? actionIcon;
 
-  final String actionText;
+  final String? actionText;
 
-  final String statusText;
+  final String? statusText;
 
   const ErrorState({
-    Key key,
+    Key? key,
     this.action,
     this.actionIcon,
     this.actionText,
@@ -34,7 +34,7 @@ class ErrorState extends StatelessWidget {
               Visibility(
                 visible: action != null,
                 child: OutlinedButton(
-                  onPressed: action,
+                  onPressed: action as void Function()?,
                   child: Text(actionText ?? 'Tap to retry.'),
                 ),
               )

@@ -3,21 +3,21 @@ import 'package:squadup/models/super_powers_connection.dart';
 import 'package:squadup/models/affiliation_to_superheroes_connection.dart';
 
 class Superhero {
-  int nodeId;
-  int id;
-  String name;
-  String alterEgo;
-  int stamina;
-  int speed;
-  int size;
-  int threat;
-  int physicalD;
-  int energyD;
-  int mysticD;
-  int staminaInjured;
-  AttacksConnection attacksBySuperheroId;
-  SuperPowersConnection superPowersBySuperheroId;
-  AffiliationToSuperheroesConnection affiliationToSuperheroesByB;
+  int? nodeId;
+  int? id;
+  String? name;
+  String? alterEgo;
+  int? stamina;
+  int? speed;
+  int? size;
+  int? threat;
+  int? physicalD;
+  int? energyD;
+  int? mysticD;
+  int? staminaInjured;
+  AttacksConnection? attacksBySuperheroId;
+  SuperPowersConnection? superPowersBySuperheroId;
+  AffiliationToSuperheroesConnection? affiliationToSuperheroesByB;
   Superhero(
       {this.nodeId,
       this.id,

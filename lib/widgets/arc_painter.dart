@@ -7,10 +7,10 @@ class ArcPainter extends CustomPainter {
     this.strokeWidth,
     this.backgroundColor,
     this.color,
-    this.headValue,
-    this.tailValue,
-    this.stepValue,
-    this.rotationValue
+    required this.headValue,
+    required this.tailValue,
+    required this.stepValue,
+    required this.rotationValue
   })  : arcStart = _startAngle + // -pi / 2
       tailValue * 3 / 2 * pi +
       rotationValue * pi * 1.7 -
@@ -18,13 +18,13 @@ class ArcPainter extends CustomPainter {
         arcSweep =
         max(headValue * 3 / 2 * pi - tailValue * 3 / 2 * pi, _epsilon);
 
-  final Color backgroundColor;
-  final Color color;
+  final Color? backgroundColor;
+  final Color? color;
   final double headValue;
   final double tailValue;
   final int stepValue;
   final double rotationValue;
-  final double strokeWidth;
+  final double? strokeWidth;
   final double arcStart;
   final double arcSweep;
 
@@ -39,12 +39,12 @@ class ArcPainter extends CustomPainter {
   void paint(Canvas canvas, Size size) {
     if (backgroundColor != null) {
       final Paint backgroundPaint = Paint()
-        ..color = backgroundColor
-        ..strokeWidth = strokeWidth
+        ..color = backgroundColor!
+        ..strokeWidth = strokeWidth!
         ..style = PaintingStyle.stroke;
       canvas.drawArc(
-          Offset(-strokeWidth / 2, -strokeWidth / 2) &
-          Size(size.width + strokeWidth, size.height + strokeWidth),
+          Offset(-strokeWidth! / 2, -strokeWidth! / 2) &
+          Size(size.width + strokeWidth!, size.height + strokeWidth!),
           0,
           _completeCircumference,
           false,
@@ -52,14 +52,14 @@ class ArcPainter extends CustomPainter {
     }
 
     final Paint paint = Paint()
-      ..color = color
-      ..strokeWidth = strokeWidth
+      ..color = color!
+      ..strokeWidth = strokeWidth!
       ..style = PaintingStyle.stroke
       ..strokeCap = StrokeCap.square;
 
     canvas.drawArc(
-        Offset(-strokeWidth / 2, -strokeWidth / 2) &
-        Size(size.width + strokeWidth, size.height + strokeWidth),
+        Offset(-strokeWidth! / 2, -strokeWidth! / 2) &
+        Size(size.width + strokeWidth!, size.height + strokeWidth!),
         arcStart,
         arcSweep,
         false,

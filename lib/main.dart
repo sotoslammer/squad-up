@@ -47,7 +47,7 @@ class SquadUpApp extends StatelessWidget {
 }
 
 class App extends StatefulWidget {
-  App({Key key}) : super(key: key);
+  App({Key? key}) : super(key: key);
 
   @override
   _AppState createState() => _AppState();
@@ -78,7 +78,7 @@ class _AppState extends State<App> {
           ),
         ),
         onWillPop: () async =>
-            !await _navigatorKeys[_currentTab].currentState.maybePop());
+            !await _navigatorKeys[_currentTab]!.currentState!.maybePop());
   }
 
   Widget _buildOffstageNavigator(TabItem tabItem) {

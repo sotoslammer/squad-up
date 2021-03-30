@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:squadup/models/roster.dart';
 
 abstract class RosterBuilderState extends Equatable {
@@ -14,7 +13,7 @@ class BuildingRosterInit extends RosterBuilderState{}
 class BuildingRoster extends RosterBuilderState {
   final Roster roster;
 
-  const BuildingRoster({@required this.roster});
+  const BuildingRoster({required this.roster});
 
   @override
   List<Object> get props => [roster];

@@ -3,16 +3,16 @@ import 'package:squadup/models/superhero.dart';
 import 'package:squadup/util.dart';
 
 class SuperPower {
-  int nodeId;
-  int id;
-  int superheroId;
-  String name;
-  SuperPowerType type;
-  String effect;
-  String power;
-  bool healthy;
-  bool injured;
-  Superhero superheroBySuperheroId;
+  int? nodeId;
+  int? id;
+  int? superheroId;
+  String? name;
+  SuperPowerType? type;
+  String? effect;
+  String? power;
+  bool? healthy;
+  bool? injured;
+  Superhero? superheroBySuperheroId;
   SuperPower(
       {this.nodeId,
       this.id,

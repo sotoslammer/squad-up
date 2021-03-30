@@ -2,7 +2,7 @@ import 'package:squadup/models/affiliation_to_superhero.dart';
 
 class AffiliationToSuperheroesEdge {
   var cursor;
-  AffiliationToSuperhero node;
+  AffiliationToSuperhero? node;
   AffiliationToSuperheroesEdge({this.cursor, this.node});
 
   AffiliationToSuperheroesEdge.fromJson(Map<String, dynamic> json) {

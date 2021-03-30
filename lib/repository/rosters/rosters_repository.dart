@@ -8,5 +8,5 @@ abstract class RostersRepository {
 
   Future<void> addNewRoster(Roster roster);
 
-  Future<void> removeRoster(Roster roster);
+  Future<void>? removeRoster(Roster roster);
 }

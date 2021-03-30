@@ -13,7 +13,7 @@ class BuilderScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Roster/*!*/ roster = ModalRoute.of(context).settings.arguments;
+    Roster roster = ModalRoute.of(context)!.settings.arguments as Roster;
     return BlocProvider(
         create: (BuildContext context) => builderBloc..add(SetRoster(roster: roster)),
         child: Builder(bloc: builderBloc));
@@ -23,7 +23,7 @@ class BuilderScreen extends StatelessWidget {
 class Builder extends StatefulWidget {
   final RosterBuilderBloc bloc;
 
-  Builder({@required this.bloc});
+  Builder({required this.bloc});
 
   @override
   State<StatefulWidget> createState() => BuilderState();
@@ -58,7 +58,7 @@ class BuilderState extends State<Builder> {
 class _Builder extends StatefulWidget {
   final Roster roster;
 
-  const _Builder({@required this.roster}) : super();
+  const _Builder({required this.roster}) : super();
 
   @override
   State<StatefulWidget> createState() => _BuilderState(roster);
@@ -71,7 +71,7 @@ class _BuilderState extends State<_Builder> with SingleTickerProviderStateMixin 
     Tab(text: 'CRISIS'),
   ];
 
-  TabController _tabController;
+  late TabController? _tabController;
   List cards = [];
   final nameController = TextEditingController(text: '');
 
@@ -82,14 +82,14 @@ class _BuilderState extends State<_Builder> with SingleTickerProviderStateMixin 
   void initState() {
     super.initState();
     _tabController = TabController(length: tabs.length, vsync: this);
-    _tabController.addListener(_handleTabSelection);
+    _tabController!.addListener(_handleTabSelection);
     cards = roster.superHeroes;
   }
 
   @override
   void dispose() {
     nameController.dispose();
-    _tabController.dispose();
+    _tabController!.dispose();
     super.dispose();
   }
 
@@ -99,9 +99,9 @@ class _BuilderState extends State<_Builder> with SingleTickerProviderStateMixin 
       roster.tacticCards,
       roster.crisisCards
     ];
-    if (_tabController.indexIsChanging) {
+    if (_tabController!.indexIsChanging) {
       setState(() {
-        cards = selections[_tabController.index];
+        cards = selections[_tabController!.index];
       });
     }
   }

@@ -1,6 +1,6 @@
 class PageInfo {
-  bool hasNextPage;
-  bool hasPreviousPage;
+  bool? hasNextPage;
+  bool? hasPreviousPage;
   var startCursor;
   var endCursor;
   PageInfo(
