@@ -4,7 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/roster_builder/bloc.dart';
 import 'package:squadup/bloc/roster_builder/event.dart';
 import 'package:squadup/bloc/roster_builder/roster_builder.dart';
+import 'package:squadup/models/crisis.dart';
 import 'package:squadup/models/roster.dart';
+import 'package:squadup/models/superhero.dart';
+import 'package:squadup/models/tactic.dart';
 
 import '../get_it.dart';
 
@@ -15,7 +18,8 @@ class BuilderScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     Roster roster = ModalRoute.of(context)!.settings.arguments as Roster;
     return BlocProvider(
-        create: (BuildContext context) => builderBloc..add(SetRoster(roster: roster)),
+        create: (BuildContext context) =>
+            builderBloc..add(SetRoster(roster: roster)),
         child: Builder(bloc: builderBloc));
   }
 }
@@ -64,44 +68,47 @@ class _Builder extends StatefulWidget {
   State<StatefulWidget> createState() => _BuilderState(roster);
 }
 
-class _BuilderState extends State<_Builder> with SingleTickerProviderStateMixin {
+class _BuilderState extends State<_Builder>
+    with SingleTickerProviderStateMixin {
   final tabs = [
     Tab(text: 'CHARACTERS'),
     Tab(text: 'TACTICS'),
     Tab(text: 'CRISIS'),
   ];
 
-  late TabController? _tabController;
+  late TabController _tabController =
+      TabController(length: tabs.length, vsync: this);
   List cards = [];
+  late final selections = [
+    roster.superHeroes,
+    roster.tacticCards,
+    roster.crisisCards
+  ];
+
   final nameController = TextEditingController(text: '');
 
   final Roster roster;
+
   _BuilderState(this.roster);
 
   @override
   void initState() {
     super.initState();
-    _tabController = TabController(length: tabs.length, vsync: this);
-    _tabController!.addListener(_handleTabSelection);
+    _tabController.addListener(_handleTabSelection);
     cards = roster.superHeroes;
   }
 
   @override
   void dispose() {
     nameController.dispose();
-    _tabController!.dispose();
+    _tabController.dispose();
     super.dispose();
   }
 
   _handleTabSelection() {
-    final selections = [
-      roster.superHeroes,
-      roster.tacticCards,
-      roster.crisisCards
-    ];
-    if (_tabController!.indexIsChanging) {
+    if (_tabController.indexIsChanging) {
       setState(() {
-        cards = selections[_tabController!.index];
+        cards = selections[_tabController.index];
       });
     }
   }
@@ -145,21 +152,81 @@ class _BuilderState extends State<_Builder> with SingleTickerProviderStateMixin 
       },
       body: ListView.builder(
         itemCount: cards.length,
-        itemBuilder: (BuildContext context, int index) {
-          return Card(
-            color: index % 2 == 0 ? Colors.blue : Colors.green,
-            child: Container(
-              alignment: Alignment.center,
-              width: double.infinity,
-              height: 100.0,
-              child: Text(
-                'Flutter is awesome',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-          );
-        },
+        itemBuilder: (BuildContext context, int index) =>
+            Card(child: buildSlot(index)),
       ),
     ));
+  }
+
+  Widget buildSlot(int idx) {
+    if (cards is List<Superhero>) {
+      return CharacterSlot(hero: cards[idx]);
+    } else if (cards is List<Tactic>) {
+      return TacticSlot(tactic: cards[idx]);
+    } else {
+      return CrisisSlot(crisis: cards[idx]);
+    }
+  }
+}
+
+class CharacterSlot extends StatelessWidget {
+  final Superhero? hero;
+
+  const CharacterSlot({Key? key, this.hero}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (hero == null) {
+      return ListTile(title: Text('Empty'));
+    }
+
+    return ListTile(
+      title: Text(hero?.name ?? '--'),
+      subtitle: Text(affiliatedAsString()),
+    );
+  }
+
+  String affiliatedAsString() {
+    var affiliations = hero?.affiliationToSuperheroesByB?.nodes
+            ?.map((e) => e.affiliationByA?.name) ??
+        ['Unaffiliated'];
+
+    var concat = StringBuffer();
+
+    affiliations.forEach((s) => {concat.write('$s, ')});
+
+    return concat.toString();
+  }
+}
+
+class TacticSlot extends StatelessWidget {
+  final Tactic? tactic;
+
+  const TacticSlot({Key? key, this.tactic}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (tactic == null) {
+      return ListTile(title: Text('Empty'));
+    }
+
+    return ListTile(
+      title: Text(tactic?.name ?? '--'),
+    );
+  }
+}
+
+class CrisisSlot extends StatelessWidget {
+  final Crisis? crisis;
+
+  const CrisisSlot({Key? key, this.crisis}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    if (crisis == null) {
+      return ListTile(title: Text('Empty'));
+    }
+
+    return ListTile(title: Text(crisis?.name ?? '--'));
   }
 }
