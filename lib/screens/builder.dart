@@ -8,6 +8,7 @@ import 'package:squadup/models/crisis.dart';
 import 'package:squadup/models/roster.dart';
 import 'package:squadup/models/superhero.dart';
 import 'package:squadup/models/tactic.dart';
+import 'package:squadup/widgets/roster_tab_navigator.dart';
 
 import '../get_it.dart';
 
@@ -159,9 +160,10 @@ class _BuilderState extends State<_Builder>
   }
 
   Widget buildSlot(int idx) {
-    if (cards is List<Superhero>) {
+    var selectedTab = _tabController.index;
+    if (selectedTab == 0) {
       return CharacterSlot(hero: cards[idx]);
-    } else if (cards is List<Tactic>) {
+    } else if (selectedTab == 1) {
       return TacticSlot(tactic: cards[idx]);
     } else {
       return CrisisSlot(crisis: cards[idx]);
@@ -174,16 +176,23 @@ class CharacterSlot extends StatelessWidget {
 
   const CharacterSlot({Key? key, this.hero}) : super(key: key);
 
+  void gotToCharacterSelector(BuildContext context) {
+    Navigator.pushNamed(context, RosterTabRoutes.characterSelector);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (hero == null) {
-      return ListTile(title: Text('Empty'));
+      return ListTile(
+        title: Text('Empty'),
+        onTap: () => gotToCharacterSelector(context),
+      );
     }
 
     return ListTile(
-      title: Text(hero?.name ?? '--'),
-      subtitle: Text(affiliatedAsString()),
-    );
+        title: Text(hero?.name ?? '--'),
+        subtitle: Text(affiliatedAsString()),
+        onTap: () => gotToCharacterSelector(context));
   }
 
   String affiliatedAsString() {
@@ -204,14 +213,20 @@ class TacticSlot extends StatelessWidget {
 
   const TacticSlot({Key? key, this.tactic}) : super(key: key);
 
+  void gotToTacticSelector(BuildContext context) {
+    Navigator.pushNamed(context, RosterTabRoutes.tacticSelector);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (tactic == null) {
-      return ListTile(title: Text('Empty'));
+      return ListTile(
+          title: Text('Empty'), onTap: () => gotToTacticSelector(context));
     }
 
     return ListTile(
       title: Text(tactic?.name ?? '--'),
+      onTap: () => gotToTacticSelector(context),
     );
   }
 }
@@ -221,12 +236,22 @@ class CrisisSlot extends StatelessWidget {
 
   const CrisisSlot({Key? key, this.crisis}) : super(key: key);
 
+  void gotToCrisisSelector(BuildContext context) {
+    Navigator.pushNamed(context, RosterTabRoutes.crisisSelector);
+  }
+
   @override
   Widget build(BuildContext context) {
     if (crisis == null) {
-      return ListTile(title: Text('Empty'));
+      return ListTile(
+        title: Text('Empty'),
+        onTap: () => gotToCrisisSelector(context),
+      );
     }
 
-    return ListTile(title: Text(crisis?.name ?? '--'));
+    return ListTile(
+      title: Text(crisis?.name ?? '--'),
+      onTap: () => gotToCrisisSelector(context),
+    );
   }
 }
