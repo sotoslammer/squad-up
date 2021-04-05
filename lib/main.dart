@@ -1,7 +1,11 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:graphql/client.dart';
 import 'package:hive/hive.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:squadup/get_it.dart';
 import 'package:squadup/repository/rosters/constants.dart';
 import 'package:squadup/repository/rosters/entity.dart';
@@ -15,7 +19,9 @@ import 'nav_tabs.dart';
 void main() async {
   await Hive.initFlutter();
   await Hive.openBox<RosterEntity>(rostersBox);
-  getServices();
+  Directory appDocDir = await getApplicationDocumentsDirectory();
+  final store = await HiveStore.open(boxName: 'api', path: appDocDir.path);
+  getServices(store);
   runApp(SquadUpApp());
 }
 

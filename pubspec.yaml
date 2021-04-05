@@ -24,8 +24,11 @@ dependencies:
   equatable: ^2.0.0
   flutter_bloc:  ^7.0.0-nullsafety.6
   get_it: ^6.0.0
+  graphql: ^5.0.0-nullsafety.3
   hive: ^2.0.0
   hive_flutter: ^1.0.0
+  json_annotation: ^4.0.0
+  path_provider: ^2.0.1
   uuid: 3.0.2
   flutter:
     sdk: flutter
@@ -36,7 +39,8 @@ dependencies:
 dev_dependencies:
   hive_generator: ^1.0.0
   build_runner:
-  graphql_to_dart: ^1.0.1
+  gql_code_gen: ^0.1.5
+  json_serializable: ^4.0.0
   flutter_test:
     sdk: flutter
 
@@ -46,6 +50,9 @@ dependency_overrides:
   convert: ^3.0.0
   crypto: ^3.0.0
   yaml: ^3.0.0
+  glob: ^2.0.0
+  gql: ^0.13.0-nullsafety.2
+  hive: ^2.0.0
 
 flutter:
   uses-material-design: true

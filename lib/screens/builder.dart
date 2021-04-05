@@ -191,21 +191,11 @@ class CharacterSlot extends StatelessWidget {
 
     return ListTile(
         title: Text(hero?.name ?? '--'),
-        subtitle: Text(affiliatedAsString()),
+        subtitle: Text(hero?.affiliatedAsString() ?? 'Unaffiliated'),
         onTap: () => gotToCharacterSelector(context));
   }
 
-  String affiliatedAsString() {
-    var affiliations = hero?.affiliationToSuperheroesByB?.nodes
-            ?.map((e) => e.affiliationByA?.name) ??
-        ['Unaffiliated'];
 
-    var concat = StringBuffer();
-
-    affiliations.forEach((s) => {concat.write('$s, ')});
-
-    return concat.toString();
-  }
 }
 
 class TacticSlot extends StatelessWidget {

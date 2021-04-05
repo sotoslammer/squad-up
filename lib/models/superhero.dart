@@ -18,6 +18,7 @@ class Superhero {
   AttacksConnection? attacksBySuperheroId;
   SuperPowersConnection? superPowersBySuperheroId;
   AffiliationToSuperheroesConnection? affiliationToSuperheroesByB;
+
   Superhero(
       {this.nodeId,
       this.id,
@@ -34,6 +35,22 @@ class Superhero {
       this.attacksBySuperheroId,
       this.superPowersBySuperheroId,
       this.affiliationToSuperheroesByB});
+
+  String affiliatedAsString() {
+    var affiliations = affiliationToSuperheroesByB?.nodes
+            ?.map((e) => e.affiliationByA?.name) ??
+        ['Unaffiliated'];
+
+    return affiliations.fold<String>('', (concat, s) {
+      if (concat.isNotEmpty) {
+        concat = concat + ', $s';
+      } else {
+        concat = s!;
+      }
+
+      return concat;
+    });
+  }
 
   Superhero.fromJson(Map<String, dynamic> json) {
     nodeId = json['nodeId'];
