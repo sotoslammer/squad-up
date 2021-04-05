@@ -49,9 +49,9 @@ class CharacterSelectorState extends State<_CharacterSelector> {
                 child: ListTile(
                     title: Text(state.superheroes[index].name ?? 'Unknown'),
                     subtitle: Text(state.superheroes[index].affiliatedAsString()),
-                    trailing: Text(
+                    leading: Text(
                         state.superheroes[index].threat?.toString() ??
-                            'Unknown'))),
+                            'Unknown', style: TextStyle(fontSize: 34),))),
           );
         } else {
           return Container(
