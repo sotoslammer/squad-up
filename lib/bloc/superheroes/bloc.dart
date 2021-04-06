@@ -21,15 +21,15 @@ class SuperheroesBloc extends Bloc<SuperheroesEvent, SuperheroState> {
       SuperheroesEvent event) async* {
     yield SuperheroesLoading();
     try {
-      final QueryOptions options = QueryOptions(document: allSuperHeroes);
+      final QueryOptions options = QueryOptions(
+          document: allSuperHeroes, fetchPolicy: FetchPolicy.cacheAndNetwork);
       final result = await gqlClient.query(options);
       if (result.hasException) {
         yield SuperheroesLoadFailure();
       } else {
         List nodes = result.data?['allSuperheroes']['nodes'];
-        List<Superhero> heroes = nodes
-            .map((n) => Superhero.fromJson(n))
-            .toList();
+        List<Superhero> heroes =
+            nodes.map((n) => Superhero.fromJson(n)).toList();
         yield SuperheroesLoadSuccess(heroes);
       }
     } catch (e) {

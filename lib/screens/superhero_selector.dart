@@ -4,7 +4,7 @@ import 'package:squadup/bloc/superheroes/barrel.dart';
 import 'package:squadup/get_it.dart';
 import 'package:squadup/widgets/error.dart';
 
-class CharacterSelectorScreen extends StatelessWidget {
+class SuperheroSelectorScreen extends StatelessWidget {
   final superheroesBloc = getIt.get<SuperheroesBloc>();
 
   @override
@@ -14,21 +14,21 @@ class CharacterSelectorScreen extends StatelessWidget {
       child: SafeArea(
           child: Scaffold(
               appBar: AppBar(title: Text("Select")),
-              body: _CharacterSelector(bloc: superheroesBloc))),
+              body: _SuperheroSelector(bloc: superheroesBloc))),
     );
   }
 }
 
-class _CharacterSelector extends StatefulWidget {
+class _SuperheroSelector extends StatefulWidget {
   final SuperheroesBloc bloc;
 
-  _CharacterSelector({Key? key, required this.bloc}) : super(key: key);
+  _SuperheroSelector({Key? key, required this.bloc}) : super(key: key);
 
   @override
-  State<StatefulWidget> createState() => CharacterSelectorState();
+  State<StatefulWidget> createState() => SuperheroSelectorState();
 }
 
-class CharacterSelectorState extends State<_CharacterSelector> {
+class SuperheroSelectorState extends State<_SuperheroSelector> {
   void loadSuperheroes() {
     widget.bloc.add(SuperheroesLoad());
   }
@@ -43,16 +43,25 @@ class CharacterSelectorState extends State<_CharacterSelector> {
         } else if (state is SuperheroesLoadFailure) {
           return ErrorState(action: loadSuperheroes);
         } else if (state is SuperheroesLoadSuccess) {
-          return ListView.builder(
-            itemCount: state.superheroes.length,
-            itemBuilder: (BuildContext context, int index) => Card(
-                child: ListTile(
-                    title: Text(state.superheroes[index].name ?? 'Unknown'),
-                    subtitle: Text(state.superheroes[index].affiliatedAsString()),
-                    leading: Text(
-                        state.superheroes[index].threat?.toString() ??
-                            'Unknown', style: TextStyle(fontSize: 34),))),
-          );
+          return RefreshIndicator(
+              onRefresh: () async {
+                loadSuperheroes();
+              },
+              child: ListView.builder(
+                itemCount: state.superheroes.length,
+                itemBuilder: (BuildContext context, int index) =>
+                    Card(
+                        child: ListTile(
+                            title: Text(
+                                state.superheroes[index].name ?? 'Unknown'),
+                            subtitle:
+                            Text(state.superheroes[index].affiliatedAsString()),
+                            leading: Text(
+                              state.superheroes[index].threat?.toString() ??
+                                  'Unknown',
+                              style: TextStyle(fontSize: 34),
+                            ))),
+              ));
         } else {
           return Container(
               alignment: Alignment.center,

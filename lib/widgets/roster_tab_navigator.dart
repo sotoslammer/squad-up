@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:squadup/screens/builder.dart';
-import 'package:squadup/screens/character_selector.dart';
+import 'package:squadup/screens/superhero_selector.dart';
 import 'package:squadup/screens/crisis_selector.dart';
 import 'package:squadup/screens/rosters.dart';
 import 'package:squadup/screens/tactic_selector.dart';
@@ -23,7 +23,7 @@ class RostersTabNavigator extends StatelessWidget {
     return {
       RosterTabRoutes.root: RostersScreen(),
       RosterTabRoutes.builder: BuilderScreen(),
-      RosterTabRoutes.characterSelector: CharacterSelectorScreen(),
+      RosterTabRoutes.characterSelector: SuperheroSelectorScreen(),
       RosterTabRoutes.tacticSelector: TacticSelectorScreen(),
       RosterTabRoutes.crisisSelector: CrisisSelectorScreen()
     };
