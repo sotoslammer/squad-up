@@ -15,6 +15,7 @@ class Attack {
   bool? healthy;
   bool? injured;
   Superhero? superheroBySuperheroId;
+
   Attack(
       {this.nodeId,
       this.id,
@@ -34,11 +35,14 @@ class Attack {
     id = json['id'];
     superheroId = json['superheroId'];
     name = json['name'];
-    type = json['type'] != null ? enumFromString(AttackType.values, json['type']) : null;
+    type = json['type'] != null
+        ? enumFromString(AttackType.values, json['type'])
+        : null;
     range = json['range'];
     strength = json['strength'];
     power = json['power'];
-    effects = json['effects'] != null ? json['effects'] : null;
+    effects =
+        json['effects'] != null ? new List<String>.from(json['effects']) : null;
     healthy = json['healthy'];
     injured = json['injured'];
     superheroBySuperheroId = json['superheroBySuperheroId'] != null

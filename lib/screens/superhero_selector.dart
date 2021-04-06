@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/superheroes/barrel.dart';
 import 'package:squadup/get_it.dart';
+import 'package:squadup/models/superhero.dart';
 import 'package:squadup/widgets/error.dart';
+import 'package:squadup/widgets/roster_tab_navigator.dart';
 
 class SuperheroSelectorScreen extends StatelessWidget {
   final superheroesBloc = getIt.get<SuperheroesBloc>();
@@ -50,17 +52,7 @@ class SuperheroSelectorState extends State<_SuperheroSelector> {
               child: ListView.builder(
                 itemCount: state.superheroes.length,
                 itemBuilder: (BuildContext context, int index) =>
-                    Card(
-                        child: ListTile(
-                            title: Text(
-                                state.superheroes[index].name ?? 'Unknown'),
-                            subtitle:
-                            Text(state.superheroes[index].affiliatedAsString()),
-                            leading: Text(
-                              state.superheroes[index].threat?.toString() ??
-                                  'Unknown',
-                              style: TextStyle(fontSize: 34),
-                            ))),
+                    SuperheroCard(hero: state.superheroes[index]),
               ));
         } else {
           return Container(
@@ -69,5 +61,27 @@ class SuperheroSelectorState extends State<_SuperheroSelector> {
         }
       },
     );
+  }
+}
+
+class SuperheroCard extends StatelessWidget {
+  final Superhero hero;
+
+  const SuperheroCard({Key? key, required this.hero}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+        child: ListTile(
+            title: Text(hero.name ?? 'Unknown'),
+            subtitle: Text(hero.affiliatedAsString()),
+            leading: Text(
+              hero.threat?.toString() ?? 'Unknown',
+              style: TextStyle(fontSize: 34),
+            ),
+            onTap: () {
+              Navigator.pushNamed(context, RosterTabRoutes.superhero, arguments: hero.id);
+            },
+        ));
   }
 }
