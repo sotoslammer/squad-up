@@ -15,12 +15,26 @@ class SuperheroDetails extends StatefulWidget {
 }
 
 class _SuperheroDetailsState extends State<SuperheroDetails> {
+  bool viewHealthy = true;
+
+  void setViewHealthyStatline(bool value) {
+    setState(() {
+      viewHealthy = value;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: NestedScrollView(
           headerSliverBuilder: (BuildContext context, bool innerBoxIsScrolled) {
-            return [StatBar(superhero: widget.superhero)];
+            return [
+              StatBar(
+                superhero: widget.superhero,
+                viewHealthy: viewHealthy,
+                onViewHealthyChange: setViewHealthyStatline,
+              )
+            ];
           },
           body: Text("details")),
     );

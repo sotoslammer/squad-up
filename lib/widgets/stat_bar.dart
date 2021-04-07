@@ -4,14 +4,29 @@ import 'package:squadup/widgets/icons.dart';
 
 class StatBar extends StatefulWidget {
   final Superhero superhero;
+  final bool viewHealthy;
+  final Function onViewHealthyChange;
 
-  const StatBar({Key? key, required this.superhero}) : super(key: key);
+  const StatBar(
+      {Key? key,
+      required this.superhero,
+      required this.onViewHealthyChange,
+      required this.viewHealthy})
+      : super(key: key);
 
   @override
   State<StatefulWidget> createState() => _StatBarState();
 }
 
 class _StatBarState extends State<StatBar> {
+  String displayStamina() {
+    if (widget.viewHealthy) {
+      return widget.superhero.stamina.toString();
+    } else {
+      return widget.superhero.staminaInjured.toString();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return SliverAppBar(
@@ -20,59 +35,89 @@ class _StatBarState extends State<StatBar> {
       automaticallyImplyLeading: false,
       flexibleSpace: FlexibleSpaceBar(
         collapseMode: CollapseMode.pin,
-        background: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, top: 16),
-                      child: Text(widget.superhero.name ?? "",
-                          style: TextStyle(fontSize: 24))),
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, top: 20),
-                      child: Row(children: [
-                        StatIcon(src: 'assets/Stamina.jpg'),
-                        StatText(text: widget.superhero.stamina.toString()),
-                      ])),
-                  Padding(
-                      padding: EdgeInsets.only(right: 16, left: 16, top: 20),
-                      child: Row(children: [
-                        StatIcon(src: 'assets/Threat.png'),
-                        StatText(
-                            text: widget.superhero.threat?.toString() ?? '')
-                      ]))
+        background: Column(children: [
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Column(children: [
+                Padding(
+                    padding: EdgeInsets.only(top: 16),
+                    child: Text(widget.superhero.name ?? "",
+                        style: TextStyle(fontSize: 24))),
+                Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: Text(widget.superhero.alterEgo ?? "",
+                        style: TextStyle(fontSize: 16))),
+              ]),
+              SizedBox(width: 32),
+              Column(children: [
+                Padding(
+                    padding: EdgeInsets.only(top: 20),
+                    child: Row(children: [
+                      StatIcon(src: 'assets/Stamina.jpg'),
+                      StatText(text: displayStamina()),
+                    ])),
+                Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Row(children: [
+                      StatIcon(src: 'assets/Speed.jpg'),
+                      StatText(text: widget.superhero.displaySpeed())
+                    ])),
+              ]),
+              SizedBox(width: 8),
+              Column(children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 20),
+                  child: Row(children: [
+                    StatIcon(src: 'assets/Threat.png'),
+                    StatText(text: widget.superhero.threat?.toString() ?? '')
+                  ]),
+                ),
+                Padding(
+                    padding: EdgeInsets.only(top: 8),
+                    child: Row(children: [
+                      StatIcon(src: 'assets/Size.png'),
+                      StatText(text: widget.superhero.size?.toString() ?? '')
+                    ])),
+              ]),
+            ],
+          ),
+          Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Row(children: [
+                Text("Injured"),
+                Switch(
+                    value: widget.viewHealthy,
+                    onChanged: (value) {
+                      widget.onViewHealthyChange(value);
+                    }),
+                Text("Healthy")
+              ]),
+              SizedBox(width: 16),
+              Row(children:[
+                Row(children: [
+                  StatIcon(src: 'assets/Physical.png'),
+                  StatText(text: widget.superhero.physicalD.toString())
                 ]),
-            Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Padding(
-                      padding: EdgeInsets.only(right: 56, left: 16, top: 8),
-                      child: Text(widget.superhero.alterEgo ?? "",
-                          style: TextStyle(fontSize: 16, fontFamily: n))),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          right: 16, left: 16, top: 8, bottom: 16),
-                      child: Row(children: [
-                        StatIcon(src: 'assets/Speed.jpg'),
-                        StatText(text: widget.superhero.displaySpeed())
-                      ])),
-                  Padding(
-                      padding: EdgeInsets.only(
-                          right: 16, left: 16, top: 8, bottom: 16),
-                      child: Row(children: [
-                        StatIcon(src: 'assets/Size.png'),
-                        StatText(text: widget.superhero.size?.toString() ?? '')
-                      ]))
+                SizedBox(width: 8),
+                Row(children: [
+                  StatIcon(src: 'assets/Energy.png'),
+                  StatText(text: widget.superhero.energyD.toString())
                 ]),
-          ],
-        ),
+                SizedBox(width: 10),
+                Row(children: [
+                  StatIcon(src: 'assets/Mystic.png'),
+                  StatText(text: widget.superhero.mysticD.toString())
+                ]),
+              ])
+            ]
+          )
+        ]),
       ),
-      expandedHeight: MediaQuery.of(context).size.height * 0.25,
+      expandedHeight: MediaQuery.of(context).size.height * 0.16,
     );
   }
 }
@@ -84,7 +129,7 @@ class StatText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => Padding(
-      padding: EdgeInsets.only(left: 5),
+      padding: EdgeInsets.only(left: 4),
       child: Text(text,
           style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)));
 }
