@@ -6,12 +6,14 @@ class StatBar extends StatefulWidget {
   final Superhero superhero;
   final bool viewHealthy;
   final Function onViewHealthyChange;
+  final PreferredSizeWidget tabBar;
 
   const StatBar(
       {Key? key,
       required this.superhero,
       required this.onViewHealthyChange,
-      required this.viewHealthy})
+      required this.viewHealthy,
+      required this.tabBar})
       : super(key: key);
 
   @override
@@ -86,38 +88,38 @@ class _StatBarState extends State<StatBar> {
           Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(children: [
-                Text("Injured"),
-                Switch(
-                    value: widget.viewHealthy,
-                    onChanged: (value) {
-                      widget.onViewHealthyChange(value);
-                    }),
-                Text("Healthy")
-              ]),
-              SizedBox(width: 16),
-              Row(children:[
+              children: [
                 Row(children: [
-                  StatIcon(src: 'assets/Physical.png'),
-                  StatText(text: widget.superhero.physicalD.toString())
+                  Text("Injured"),
+                  Switch(
+                      value: widget.viewHealthy,
+                      onChanged: (value) {
+                        widget.onViewHealthyChange(value);
+                      }),
+                  Text("Healthy")
                 ]),
-                SizedBox(width: 8),
+                SizedBox(width: 16),
                 Row(children: [
-                  StatIcon(src: 'assets/Energy.png'),
-                  StatText(text: widget.superhero.energyD.toString())
-                ]),
-                SizedBox(width: 10),
-                Row(children: [
-                  StatIcon(src: 'assets/Mystic.png'),
-                  StatText(text: widget.superhero.mysticD.toString())
-                ]),
+                  Row(children: [
+                    StatIcon(src: 'assets/Physical.png'),
+                    StatText(text: widget.superhero.physicalD.toString())
+                  ]),
+                  SizedBox(width: 8),
+                  Row(children: [
+                    StatIcon(src: 'assets/Energy.png'),
+                    StatText(text: widget.superhero.energyD.toString())
+                  ]),
+                  SizedBox(width: 10),
+                  Row(children: [
+                    StatIcon(src: 'assets/Mystic.png'),
+                    StatText(text: widget.superhero.mysticD.toString())
+                  ]),
+                ])
               ])
-            ]
-          )
         ]),
       ),
-      expandedHeight: MediaQuery.of(context).size.height * 0.16,
+      expandedHeight: MediaQuery.of(context).size.height * 0.20,
+      bottom: widget.tabBar
     );
   }
 }

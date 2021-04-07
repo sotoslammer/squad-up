@@ -14,13 +14,36 @@ class SuperheroDetails extends StatefulWidget {
   State<StatefulWidget> createState() => _SuperheroDetailsState();
 }
 
-class _SuperheroDetailsState extends State<SuperheroDetails> {
+class _SuperheroDetailsState extends State<SuperheroDetails>
+    with SingleTickerProviderStateMixin {
   bool viewHealthy = true;
+  final tabs = [Tab(text: 'ATTACKS'), Tab(text: 'SUPERPOWERS')];
+
+  late TabController _tabController =
+      TabController(length: tabs.length, vsync: this);
 
   void setViewHealthyStatline(bool value) {
     setState(() {
       viewHealthy = value;
     });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    _tabController.addListener(_handleTabSelection);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabController.dispose();
+  }
+
+  _handleTabSelection() {
+    if (_tabController.indexIsChanging) {
+      setState(() {});
+    }
   }
 
   @override
@@ -33,10 +56,42 @@ class _SuperheroDetailsState extends State<SuperheroDetails> {
                 superhero: widget.superhero,
                 viewHealthy: viewHealthy,
                 onViewHealthyChange: setViewHealthyStatline,
+                tabBar: TabBar(
+                  indicatorColor: Colors.black,
+                  labelColor: Colors.black,
+                  tabs: tabs,
+                  controller: _tabController,
+                ),
               )
             ];
           },
-          body: Text("details")),
+          body: buildBody()),
+    );
+  }
+
+  Widget buildBody() {
+    var selectedTab = _tabController.index;
+    int count;
+    var builder;
+    if (selectedTab == 0) {
+      var attacks = widget.superhero.attacksBySuperheroId?.nodes ?? [];
+      count = attacks.length;
+      builder = (BuildContext context, int index) {
+        var attack = attacks[index];
+        return Card(child: ListTile(title: Text(attack.name ?? '')));
+      };
+    } else {
+      var superpowers = widget.superhero.superPowersBySuperheroId?.nodes ?? [];
+      count = superpowers.length;
+      builder = (BuildContext context, int index) {
+        var superpower = superpowers[index];
+        return Card(child: ListTile(title: Text(superpower.name ?? '')));
+      };
+    }
+
+    return ListView.builder(
+      itemCount: count,
+      itemBuilder: builder,
     );
   }
 }
