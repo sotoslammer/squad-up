@@ -23,6 +23,7 @@ environment:
 dependencies:
   equatable: ^2.0.0
   flutter_bloc:  ^7.0.0-nullsafety.6
+  flutter_svg: ^0.21.0-nullsafety.0
   get_it: ^6.0.0
   graphql: ^5.0.0-nullsafety.3
   hive: ^2.0.0
@@ -56,6 +57,19 @@ dependency_overrides:
 
 flutter:
   uses-material-design: true
+  assets:
+    - assets/Stamina.jpg
+    - assets/Stamina.svg
+    - assets/Speed.jpg
+    - assets/Size.png
+    - assets/Strength.png
+    - assets/Threat.png
+    - assets/Range.png
+    - assets/Power.png
+    - assets/Physical.png
+    - assets/Energy.png
+    - assets/Mystic.png
+    - assets/Leadership.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:

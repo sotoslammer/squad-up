@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/superhero/barrel.dart';
 import 'package:squadup/get_it.dart';
 import 'package:squadup/widgets/error.dart';
+import 'package:squadup/widgets/superhero_details.dart';
 
 class SuperheroScreen extends StatelessWidget {
   final superheroBloc = getIt.get<SuperheroBloc>();
@@ -45,8 +46,7 @@ class _SuperheroState extends State<_Superhero> {
           loadSuperhero(state.id);
         });
       } else if (state is SuperheroLoadSuccess) {
-        return Container(
-            alignment: Alignment.center, child: Text(state.superhero.name ?? ''));
+        return SuperheroDetails(superhero: state.superhero);
       } else {
         return Container(
             alignment: Alignment.center, child: Text('Something went wrong.'));

@@ -23,6 +23,7 @@ class SuperheroBloc extends Bloc<SuperheroEvent, SuperheroState> {
     try {
       final QueryOptions options = QueryOptions(
           document: superheroById,
+          fetchPolicy: FetchPolicy.cacheAndNetwork,
           variables: <String, dynamic>{'id': event.id});
       final result = await gqlClient.query(options);
       if (result.hasException) {

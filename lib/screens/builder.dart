@@ -123,6 +123,7 @@ class _BuilderState extends State<_Builder>
           SliverAppBar(
             pinned: false,
             backgroundColor: Colors.white,
+            automaticallyImplyLeading: false,
             flexibleSpace: FlexibleSpaceBar(
               collapseMode: CollapseMode.pin,
               background: Column(

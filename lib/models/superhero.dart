@@ -1,6 +1,8 @@
 import 'package:squadup/models/attacks_connection.dart';
+import 'package:squadup/models/speed.dart';
 import 'package:squadup/models/super_powers_connection.dart';
 import 'package:squadup/models/affiliation_to_superheroes_connection.dart';
+import 'package:squadup/util.dart';
 
 class Superhero {
   int? nodeId;
@@ -50,6 +52,10 @@ class Superhero {
 
       return concat;
     });
+  }
+
+  String displaySpeed() {
+    return enumToString(Speed.values[speed ?? 0]);
   }
 
   Superhero.fromJson(Map<String, dynamic> json) {

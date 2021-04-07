@@ -23,7 +23,7 @@ class RosterAddedBloc extends Bloc<RosterAddedEvent, RosterAddedState> {
   Stream<RosterAddedState> _mapRosterAddedToState(RosterAdded event) async* {
     yield RosterAddedInProgress();
     try {
-      await Future.delayed(Duration(seconds: 2));
+      await Future.delayed(Duration(seconds: 1));
       // await repo.addNewRoster(event.roster);
       // final List<Roster> updatedRosters = ((state as RostersLoadSuccess)
       //     .rosters)
