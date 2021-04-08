@@ -1,7 +1,10 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:squadup/models/speed.dart';
+import 'package:squadup/models/attack.dart';
+import 'package:squadup/models/attack_type.dart';
 import 'package:squadup/models/superhero.dart';
+import 'package:squadup/util.dart';
+import 'package:squadup/widgets/attacks.dart';
 import 'package:squadup/widgets/icons.dart';
 import 'package:squadup/widgets/stat_bar.dart';
 
@@ -65,33 +68,41 @@ class _SuperheroDetailsState extends State<SuperheroDetails>
               )
             ];
           },
-          body: buildBody()),
+          body: SingleChildScrollView(
+            child: Container(child: buildBody()),
+          )),
     );
   }
 
   Widget buildBody() {
     var selectedTab = _tabController.index;
-    int count;
-    var builder;
+    var panels;
     if (selectedTab == 0) {
       var attacks = widget.superhero.attacksBySuperheroId?.nodes ?? [];
-      count = attacks.length;
-      builder = (BuildContext context, int index) {
-        var attack = attacks[index];
-        return Card(child: ListTile(title: Text(attack.name ?? '')));
-      };
+      if (viewHealthy) {
+        attacks = attacks.where((a) => a.healthy == true).toList();
+      } else {
+        attacks = attacks.where((a) => a.injured == true).toList();
+      }
+      return Attacks(attacks: attacks);
     } else {
       var superpowers = widget.superhero.superPowersBySuperheroId?.nodes ?? [];
-      count = superpowers.length;
-      builder = (BuildContext context, int index) {
-        var superpower = superpowers[index];
-        return Card(child: ListTile(title: Text(superpower.name ?? '')));
-      };
+      if (viewHealthy) {
+        superpowers = superpowers.where((s) => s.healthy == true).toList();
+      } else {
+        superpowers = superpowers.where((s) => s.injured == true).toList();
+      }
+      panels = superpowers
+          .map((s) => ExpansionPanel(
+              headerBuilder: (context, isExpanded) =>
+                  ListTile(title: Text(s.name ?? '')),
+              body: ListTile(title: Text(s.effect ?? ''))))
+          .toList();
     }
 
-    return ListView.builder(
-      itemCount: count,
-      itemBuilder: builder,
+    return ExpansionPanelList(
+      children: panels,
+      dividerColor: Colors.white30,
     );
   }
 }

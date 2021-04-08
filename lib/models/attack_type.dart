@@ -1,5 +1,5 @@
 enum AttackType {
-  physical,
-  energy,
-  mystic
+  PHYSICAL,
+  ENERGY,
+  MYSTIC
 }

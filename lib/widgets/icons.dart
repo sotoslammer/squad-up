@@ -9,17 +9,17 @@ final Widget stamina = SvgPicture.asset(
 
 class StatIcon extends StatelessWidget {
   final String src;
+  final double? maxWidth;
+  final double? maxHeight;
 
-  const StatIcon({Key? key, required this.src}) : super(key: key);
+  const StatIcon({Key? key, required this.src, this.maxWidth, this.maxHeight})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) => Container(
-    decoration: BoxDecoration(
-      image: DecorationImage(image: AssetImage(src)),
-    ),
-    constraints: BoxConstraints(
-      maxWidth: 24,
-      maxHeight: 24
-    ),
-  );
+        decoration: BoxDecoration(
+          image: DecorationImage(image: AssetImage(src)),
+        ),
+        constraints: BoxConstraints(maxWidth: maxWidth ?? 24, maxHeight: maxHeight ?? 24),
+      );
 }
