@@ -61,17 +61,17 @@ class SuperpowerHeader extends StatelessWidget {
     var src;
     switch (superpower.type) {
       case SuperPowerType.ACTIVE:
-        src = 'assets/Energy.png';
+        src = 'assets/Active.png';
         break;
       case SuperPowerType.REACTIVE:
-        src = 'assets/Mystic.png';
+        src = 'assets/Reactive.png';
         break;
       case SuperPowerType.LEADERSHIP:
         src = 'assets/Leadership.png';
         break;
       case SuperPowerType.INNATE:
       default:
-        src = 'assets/Physical.png';
+        src = 'assets/Innate.png';
         break;
     }
 

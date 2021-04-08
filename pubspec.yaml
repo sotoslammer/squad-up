@@ -70,6 +70,17 @@ flutter:
     - assets/Energy.png
     - assets/Mystic.png
     - assets/Leadership.png
+    - assets/Active.png
+    - assets/Innate.png
+    - assets/Reactive.png
+    - assets/Speed_short.png
+    - assets/Speed_medium.png
+    - assets/Speed_long.png
+    - assets/Dice_block.png
+    - assets/Dice_critical.png
+    - assets/Dice_failure.png
+    - assets/Dice_hit.png
+    - assets/Dice_wild.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
