@@ -2,11 +2,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:squadup/models/attack.dart';
 import 'package:squadup/models/attack_type.dart';
+import 'package:squadup/models/super_power.dart';
 import 'package:squadup/models/superhero.dart';
 import 'package:squadup/util.dart';
 import 'package:squadup/widgets/attacks.dart';
 import 'package:squadup/widgets/icons.dart';
 import 'package:squadup/widgets/stat_bar.dart';
+import 'package:squadup/widgets/superpowers.dart';
 
 class SuperheroDetails extends StatefulWidget {
   final Superhero superhero;
@@ -20,6 +22,8 @@ class SuperheroDetails extends StatefulWidget {
 class _SuperheroDetailsState extends State<SuperheroDetails>
     with SingleTickerProviderStateMixin {
   bool viewHealthy = true;
+  late List<SuperPower> superpowers = widget.superhero.healthySuperpowers;
+  late List<Attack> attacks = widget.superhero.healthyAttacks;
   final tabs = [Tab(text: 'ATTACKS'), Tab(text: 'SUPERPOWERS')];
 
   late TabController _tabController =
@@ -28,6 +32,13 @@ class _SuperheroDetailsState extends State<SuperheroDetails>
   void setViewHealthyStatline(bool value) {
     setState(() {
       viewHealthy = value;
+      if (value) {
+        superpowers = widget.superhero.healthySuperpowers;
+        attacks = widget.superhero.healthyAttacks;
+      } else {
+        superpowers = widget.superhero.injuredSuperpowers;
+        attacks = widget.superhero.injuredAttacks;
+      }
     });
   }
 
@@ -76,33 +87,10 @@ class _SuperheroDetailsState extends State<SuperheroDetails>
 
   Widget buildBody() {
     var selectedTab = _tabController.index;
-    var panels;
     if (selectedTab == 0) {
-      var attacks = widget.superhero.attacksBySuperheroId?.nodes ?? [];
-      if (viewHealthy) {
-        attacks = attacks.where((a) => a.healthy == true).toList();
-      } else {
-        attacks = attacks.where((a) => a.injured == true).toList();
-      }
       return Attacks(attacks: attacks);
     } else {
-      var superpowers = widget.superhero.superPowersBySuperheroId?.nodes ?? [];
-      if (viewHealthy) {
-        superpowers = superpowers.where((s) => s.healthy == true).toList();
-      } else {
-        superpowers = superpowers.where((s) => s.injured == true).toList();
-      }
-      panels = superpowers
-          .map((s) => ExpansionPanel(
-              headerBuilder: (context, isExpanded) =>
-                  ListTile(title: Text(s.name ?? '')),
-              body: ListTile(title: Text(s.effect ?? ''))))
-          .toList();
+      return Superpowers(superpowers: superpowers);
     }
-
-    return ExpansionPanelList(
-      children: panels,
-      dividerColor: Colors.white30,
-    );
   }
 }

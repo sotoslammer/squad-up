@@ -14,8 +14,13 @@ class Attacks extends StatefulWidget {
 }
 
 class _AttacksState extends State<Attacks> {
-  late final List<bool> open =
-      List.generate(widget.attacks.length, (index) => false);
+  late List<bool> open = List.generate(widget.attacks.length, (index) => false);
+
+  @override
+  void didUpdateWidget(Attacks oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    open = List.generate(widget.attacks.length, (index) => false);
+  }
 
   @override
   Widget build(BuildContext context) {

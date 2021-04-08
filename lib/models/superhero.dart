@@ -1,5 +1,7 @@
+import 'package:squadup/models/attack.dart';
 import 'package:squadup/models/attacks_connection.dart';
 import 'package:squadup/models/speed.dart';
+import 'package:squadup/models/super_power.dart';
 import 'package:squadup/models/super_powers_connection.dart';
 import 'package:squadup/models/affiliation_to_superheroes_connection.dart';
 import 'package:squadup/util.dart';
@@ -37,6 +39,26 @@ class Superhero {
       this.attacksBySuperheroId,
       this.superPowersBySuperheroId,
       this.affiliationToSuperheroesByB});
+
+  List<SuperPower> get healthySuperpowers =>
+      superPowersBySuperheroId?.nodes
+          ?.where((s) => s.healthy == true)
+          .toList() ??
+      [];
+
+  List<SuperPower> get injuredSuperpowers =>
+      superPowersBySuperheroId?.nodes
+          ?.where((s) => s.injured == true)
+          .toList() ??
+      [];
+
+  List<Attack> get healthyAttacks =>
+      attacksBySuperheroId?.nodes?.where((s) => s.healthy == true).toList() ??
+      [];
+
+  List<Attack> get injuredAttacks =>
+      attacksBySuperheroId?.nodes?.where((s) => s.injured == true).toList() ??
+      [];
 
   String affiliatedAsString() {
     var affiliations = affiliationToSuperheroesByB?.nodes
