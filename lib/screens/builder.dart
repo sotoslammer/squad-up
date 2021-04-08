@@ -18,9 +18,8 @@ class BuilderScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Roster roster = ModalRoute.of(context)!.settings.arguments as Roster;
-    return BlocProvider(
-        create: (BuildContext context) =>
-            builderBloc..add(SetRoster(roster: roster)),
+    return BlocProvider.value(
+        value: builderBloc..add(SetRoster(roster: roster)),
         child: Builder(bloc: builderBloc));
   }
 }
@@ -163,7 +162,7 @@ class _BuilderState extends State<_Builder>
   Widget buildSlot(int idx) {
     var selectedTab = _tabController.index;
     if (selectedTab == 0) {
-      return CharacterSlot(hero: cards[idx]);
+      return CharacterSlot(hero: cards[idx], position: idx);
     } else if (selectedTab == 1) {
       return TacticSlot(tactic: cards[idx]);
     } else {
@@ -174,11 +173,14 @@ class _BuilderState extends State<_Builder>
 
 class CharacterSlot extends StatelessWidget {
   final Superhero? hero;
+  final int position;
 
-  const CharacterSlot({Key? key, this.hero}) : super(key: key);
+  const CharacterSlot({Key? key, this.hero, required this.position})
+      : super(key: key);
 
   void gotToCharacterSelector(BuildContext context) {
-    Navigator.pushNamed(context, RosterTabRoutes.characterSelector);
+    Navigator.pushNamed(context, RosterTabRoutes.characterSelector,
+        arguments: position);
   }
 
   @override
@@ -195,8 +197,6 @@ class CharacterSlot extends StatelessWidget {
         subtitle: Text(hero?.affiliatedAsString() ?? 'Unaffiliated'),
         onTap: () => gotToCharacterSelector(context));
   }
-
-
 }
 
 class TacticSlot extends StatelessWidget {

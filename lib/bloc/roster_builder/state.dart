@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:squadup/models/roster.dart';
+import 'package:squadup/models/superhero.dart';
 
 abstract class RosterBuilderState extends Equatable {
   const RosterBuilderState();
@@ -8,9 +9,9 @@ abstract class RosterBuilderState extends Equatable {
   List<Object> get props => [];
 }
 
-class BuildingRosterInit extends RosterBuilderState{}
+class BuildingRosterInit extends RosterBuilderState {}
 
-class BuildingRoster extends RosterBuilderState {
+abstract class BuildingRoster extends RosterBuilderState {
   final Roster roster;
 
   const BuildingRoster({required this.roster});
@@ -20,4 +21,22 @@ class BuildingRoster extends RosterBuilderState {
 
   @override
   String toString() => 'BuildingRoster { Roster: $roster }';
+}
+
+class InitialRoster extends BuildingRoster {
+  InitialRoster({required Roster roster}) : super(roster: roster);
+}
+
+class AddSuperheroFailed extends BuildingRoster {
+  final Superhero hero;
+
+  AddSuperheroFailed({required Roster roster, required this.hero})
+      : super(roster: roster);
+
+  @override
+  List<Object> get props => [roster, hero];
+}
+
+class AddSuperheroSuccess extends BuildingRoster {
+  AddSuperheroSuccess({required Roster roster}) : super(roster: roster);
 }

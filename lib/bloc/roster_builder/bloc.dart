@@ -10,8 +10,20 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   @override
   Stream<RosterBuilderState> mapEventToState(RosterBuilderEvent event) async* {
     if (event is SetRoster) {
-      yield BuildingRoster(roster: event.roster);
+      yield InitialRoster(roster: event.roster);
+    } else if (event is AddSuperhero) {
+      yield* _addSuperhero(event);
     }
 
+  }
+
+  Stream<RosterBuilderState> _addSuperhero(AddSuperhero event) async* {
+    var currentState = (state as BuildingRoster);
+    if (currentState.roster.containsHero(event.superhero)) {
+      yield AddSuperheroFailed(roster: currentState.roster, hero: event.superhero);
+    } else {
+      currentState.roster.addSuperHero(event.superhero, event.index);
+      yield AddSuperheroSuccess(roster: currentState.roster);
+    }
   }
 }

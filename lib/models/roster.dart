@@ -31,6 +31,10 @@ class Roster {
     superHeroes[idx] = hero;
   }
 
+  bool containsHero(Superhero hero) {
+    return superHeroes.any((s) => s?.id == hero.id);
+  }
+
   void removeSuperHero(int index) {
     superHeroes[index] = null;
   }
