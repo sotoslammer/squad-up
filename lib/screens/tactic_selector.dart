@@ -1,12 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:squadup/bloc/tactics/barrel.dart';
+import 'package:squadup/get_it.dart';
+import 'package:squadup/models/tactic.dart';
+import 'package:squadup/widgets/error.dart';
+import 'package:squadup/widgets/roster_tab_navigator.dart';
 
 class TacticSelectorScreen extends StatelessWidget {
+  final tacticsBloc = getIt.get<TacticsBloc>();
+
   @override
   Widget build(BuildContext context) {
-    return Container(
-        alignment: Alignment.center,
-        child: Text('Tactic Selector Screen')
-    );
+    return BlocProvider.value(
+        value: tacticsBloc..add(LoadTactics()),
+        child: SafeArea(
+            child: Scaffold(
+          appBar: AppBar(title: Text("Tactic Cards")),
+          body: _TacticSelector(bloc: tacticsBloc),
+        )));
+  }
+}
+
+class _TacticSelector extends StatefulWidget {
+  final TacticsBloc bloc;
+
+  const _TacticSelector({Key? key, required this.bloc}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _TacticSelectorState();
+}
+
+class _TacticSelectorState extends State<_TacticSelector> {
+  void loadTactics() {
+    widget.bloc.add(LoadTactics());
   }
 
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<TacticsBloc, TacticsState>(builder: (context, state) {
+      if (state is TacticsLoading) {
+        return Container(
+          alignment: Alignment.center,
+          child: CircularProgressIndicator(),
+        );
+      } else if (state is TacticsLoadFailure) {
+        return ErrorState(action: loadTactics);
+      } else if (state is TacticsLoadSuccess) {
+        return RefreshIndicator(
+            onRefresh: () async {
+              loadTactics();
+            },
+            child: ListView.builder(
+              itemCount: state.tactics.length,
+              itemBuilder: (context, index) {
+                var tactic = state.tactics[index];
+                return Card(
+                    child: ListTile(
+                  title: Text(tactic.name ?? ''),
+                  subtitle: renderSuperheros(tactic),
+                  onTap: () {
+                    Navigator.of(context).pushNamed(RosterTabRoutes.tactic,
+                        arguments: tactic.id);
+                  },
+                ));
+              },
+            ));
+      } else {
+        return Container(
+            alignment: Alignment.center, child: Text('Something went wrong.'));
+      }
+    });
+  }
+
+  Widget? renderSuperheros(Tactic tactic) {
+    var heroes = tactic.superheroToTacticsByB?.nodes ?? [];
+    if (heroes.length > 0) {
+      var text = heroes.fold<String>('', (val, cur) {
+        var name = cur.superheroByA?.name ?? '';
+        if (val.isNotEmpty) {
+          return val + ", $name";
+        } else {
+          return name;
+        }
+      });
+      return Text(text);
+    }
+  }
 }
