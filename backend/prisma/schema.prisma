@@ -21,6 +21,7 @@ model Superhero {
     attacks         Attack[]
     superPowers     SuperPower[]
     affiliations    Affiliation[]
+    tactics         Tactic[]
 }
 
 enum AttackType {
@@ -66,6 +67,7 @@ model Affiliation {
     id          Int @id @default(autoincrement())
     name        String
     superheros  Superhero[]
+    tactics     Tactic[]
 }
 
 enum CrisisType {
@@ -99,8 +101,11 @@ enum TacticType {
 }
 
 model Tactic {
-    id          Int @id @default(autoincrement())
-    name        String
-    type        TacticType
-    description String
+    id              Int @id @default(autoincrement())
+    name            String
+    type            TacticType
+    description     String
+    affiliationId   Int?
+    affiliation     Affiliation? @relation(fields: [affiliationId], references: [id])
+    superheros      Superhero[]
 }
