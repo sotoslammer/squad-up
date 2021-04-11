@@ -6,6 +6,7 @@ import 'package:squadup/bloc/roster_builder/bloc.dart';
 import 'package:squadup/bloc/rosters/bloc.dart';
 import 'package:squadup/bloc/superhero/barrel.dart';
 import 'package:squadup/bloc/superheroes/barrel.dart';
+import 'package:squadup/bloc/tactic/barrel.dart';
 import 'package:squadup/bloc/tactics/barrel.dart';
 import 'package:squadup/repository/rosters/rosters.dart';
 import 'package:squadup/repository/rosters/rosters_repository_hive.dart';
@@ -21,4 +22,5 @@ void getServices(Store apiStore) {
   getIt.registerLazySingleton<SuperheroesBloc>(() => SuperheroesBloc());
   getIt.registerLazySingleton<SuperheroBloc>(() => SuperheroBloc());
   getIt.registerLazySingleton<TacticsBloc>(() => TacticsBloc());
+  getIt.registerLazySingleton<TacticBloc>(() => TacticBloc());
 }
