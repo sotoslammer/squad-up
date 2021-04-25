@@ -164,9 +164,12 @@ class _BuilderState extends State<_Builder>
     if (selectedTab == 0) {
       return CharacterSlot(hero: cards[idx], position: idx);
     } else if (selectedTab == 1) {
-      return TacticSlot(tactic: cards[idx], position: idx,);
+      return TacticSlot(
+        tactic: cards[idx],
+        position: idx,
+      );
     } else {
-      return CrisisSlot(crisis: cards[idx]);
+      return CrisisSlot(crisis: cards[idx], position: idx);
     }
   }
 }
@@ -227,11 +230,14 @@ class TacticSlot extends StatelessWidget {
 
 class CrisisSlot extends StatelessWidget {
   final Crisis? crisis;
+  final int position;
 
-  const CrisisSlot({Key? key, this.crisis}) : super(key: key);
+  const CrisisSlot({Key? key, this.crisis, required this.position})
+      : super(key: key);
 
   void gotToCrisisSelector(BuildContext context) {
-    Navigator.pushNamed(context, RosterTabRoutes.crisisSelector);
+    Navigator.pushNamed(context, RosterTabRoutes.crisisSelector,
+        arguments: position);
   }
 
   @override
