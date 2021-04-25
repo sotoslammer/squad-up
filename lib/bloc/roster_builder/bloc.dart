@@ -9,6 +9,7 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   RosterBuilderBloc() : super(BuildingRosterInit());
 
   BuildingRoster get builderState => state as BuildingRoster;
+
   Roster get roster => builderState.roster;
 
   @override
@@ -45,6 +46,8 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   Stream<RosterBuilderState> _addCrisis(AddCrisis event) async* {
     if (roster.containsCrisis(event.crisis)) {
       yield AddCrisisFailed(roster: roster, crisis: event.crisis);
+    } else if (!roster.canAddCrisis(event.crisis)) {
+      yield AddCrisisFailedMaxReached(roster: roster, type: event.crisis.type!);
     } else {
       roster.addCrisisCard(event.crisis, event.index);
       yield AddCrisisSuccess(roster: roster);
