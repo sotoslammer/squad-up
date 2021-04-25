@@ -20,11 +20,11 @@ class Roster {
   List<Object?> get props => [id, name, superHeroes, crisisCards, tacticCards];
 
   List<Crisis?> get extractCards => crisisCards
-      .where((element) => element!.type == CrisisType.EXTRACT)
+      .where((element) => element?.type == CrisisType.EXTRACT)
       .toList();
 
   List<Crisis?> get secureCards => crisisCards
-      .where((element) => element!.type == CrisisType.SECURE)
+      .where((element) => element?.type == CrisisType.SECURE)
       .toList();
 
   void addSuperHero(Superhero hero, int idx) {
@@ -46,10 +46,12 @@ class Roster {
   bool canAddCrisis(Crisis crisis, int index) {
     if (crisis.type == CrisisType.EXTRACT) {
       return extractCards.length < extractLimit ||
-          crisisCards[index]?.type == CrisisType.EXTRACT;
+          (crisisCards[index] != null &&
+              crisisCards[index]?.type == CrisisType.EXTRACT);
     } else {
       return secureCards.length < secureLimit ||
-          crisisCards[index]?.type == CrisisType.SECURE;
+          (crisisCards[index] != null &&
+              crisisCards[index]?.type == CrisisType.SECURE);
     }
   }
 
