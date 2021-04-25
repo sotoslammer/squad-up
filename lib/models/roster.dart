@@ -39,6 +39,10 @@ class Roster {
     return tacticCards.any((t) => t?.id == tactic.id);
   }
 
+  bool containsCrisis(Crisis crisis) {
+    return crisisCards.any((c) => c?.id == crisis.id);
+  }
+
   void removeSuperHero(int index) {
     superHeroes[index] = null;
   }

@@ -3,9 +3,13 @@ import 'dart:async';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:squadup/bloc/roster_builder/event.dart';
 import 'package:squadup/bloc/roster_builder/roster_builder.dart';
+import 'package:squadup/models/roster.dart';
 
 class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   RosterBuilderBloc() : super(BuildingRosterInit());
+
+  BuildingRoster get builderState => state as BuildingRoster;
+  Roster get roster => builderState.roster;
 
   @override
   Stream<RosterBuilderState> mapEventToState(RosterBuilderEvent event) async* {
@@ -15,26 +19,35 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
       yield* _addSuperhero(event);
     } else if (event is AddTactic) {
       yield* _addTactic(event);
+    } else if (event is AddCrisis) {
+      yield* _addCrisis(event);
     }
   }
 
   Stream<RosterBuilderState> _addSuperhero(AddSuperhero event) async* {
-    var currentState = (state as BuildingRoster);
-    if (currentState.roster.containsHero(event.superhero)) {
-      yield AddSuperheroFailed(roster: currentState.roster, hero: event.superhero);
+    if (roster.containsHero(event.superhero)) {
+      yield AddSuperheroFailed(roster: roster, hero: event.superhero);
     } else {
-      currentState.roster.addSuperHero(event.superhero, event.index);
-      yield AddSuperheroSuccess(roster: currentState.roster);
+      roster.addSuperHero(event.superhero, event.index);
+      yield AddSuperheroSuccess(roster: roster);
     }
   }
 
   Stream<RosterBuilderState> _addTactic(AddTactic event) async* {
-    var currentState = (state as BuildingRoster);
-    if (currentState.roster.containsTactic(event.tactic)) {
-      yield AddTacticFailed(roster: currentState.roster, tactic: event.tactic);
+    if (roster.containsTactic(event.tactic)) {
+      yield AddTacticFailed(roster: roster, tactic: event.tactic);
     } else {
-      currentState.roster.addTacticCard(event.tactic, event.index);
-      yield AddTacticSuccess(roster: currentState.roster);
+      roster.addTacticCard(event.tactic, event.index);
+      yield AddTacticSuccess(roster: roster);
+    }
+  }
+
+  Stream<RosterBuilderState> _addCrisis(AddCrisis event) async* {
+    if (roster.containsCrisis(event.crisis)) {
+      yield AddCrisisFailed(roster: roster, crisis: event.crisis);
+    } else {
+      roster.addCrisisCard(event.crisis, event.index);
+      yield AddCrisisSuccess(roster: roster);
     }
   }
 }
