@@ -62,7 +62,8 @@ class _CrisisSelectorState extends State<_CrisisSelector> {
             SnackBar(content: Text("$name is already in the roster")));
       } else if (state is AddCrisisFailedMaxReached) {
         var type = enumToString(state.type);
-        ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Max number of $type crises added")))
+        ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("Max number of $type crises added")));
       } else if (state is AddCrisisSuccess) {
         Navigator.of(context).pop();
       }
