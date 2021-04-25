@@ -5,6 +5,7 @@ import 'package:squadup/bloc/roster_builder/bloc.dart';
 import 'package:squadup/bloc/roster_builder/event.dart';
 import 'package:squadup/bloc/roster_builder/roster_builder.dart';
 import 'package:squadup/models/crisis.dart';
+import 'package:squadup/models/crisis_type.dart';
 import 'package:squadup/models/roster.dart';
 import 'package:squadup/models/superhero.dart';
 import 'package:squadup/models/tactic.dart';
@@ -251,6 +252,12 @@ class CrisisSlot extends StatelessWidget {
 
     return ListTile(
       title: Text(crisis?.name ?? '--'),
+      leading: Text(crisis?.type == CrisisType.EXTRACT ? "E" : "S",
+          style: TextStyle(
+              fontSize: 34,
+              color: crisis?.type == CrisisType.EXTRACT
+                  ? Colors.red[900]
+                  : Colors.blue[900])),
       onTap: () => gotToCrisisSelector(context),
     );
   }

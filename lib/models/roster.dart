@@ -43,11 +43,13 @@ class Roster {
     return crisisCards.any((c) => c?.id == crisis.id);
   }
 
-  bool canAddCrisis(Crisis crisis) {
+  bool canAddCrisis(Crisis crisis, int index) {
     if (crisis.type == CrisisType.EXTRACT) {
-      return extractCards.length < extractLimit;
+      return extractCards.length < extractLimit ||
+          crisisCards[index]?.type == CrisisType.EXTRACT;
     } else {
-      return secureCards.length < secureLimit;
+      return secureCards.length < secureLimit ||
+          crisisCards[index]?.type == CrisisType.SECURE;
     }
   }
 

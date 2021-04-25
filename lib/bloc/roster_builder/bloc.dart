@@ -46,7 +46,7 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
   Stream<RosterBuilderState> _addCrisis(AddCrisis event) async* {
     if (roster.containsCrisis(event.crisis)) {
       yield AddCrisisFailed(roster: roster, crisis: event.crisis);
-    } else if (!roster.canAddCrisis(event.crisis)) {
+    } else if (!roster.canAddCrisis(event.crisis, event.index)) {
       yield AddCrisisFailedMaxReached(roster: roster, type: event.crisis.type!);
     } else {
       roster.addCrisisCard(event.crisis, event.index);
