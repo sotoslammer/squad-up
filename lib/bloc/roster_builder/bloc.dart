@@ -13,8 +13,9 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
       yield InitialRoster(roster: event.roster);
     } else if (event is AddSuperhero) {
       yield* _addSuperhero(event);
+    } else if (event is AddTactic) {
+      yield* _addTactic(event);
     }
-
   }
 
   Stream<RosterBuilderState> _addSuperhero(AddSuperhero event) async* {
@@ -24,6 +25,16 @@ class RosterBuilderBloc extends Bloc<RosterBuilderEvent, RosterBuilderState> {
     } else {
       currentState.roster.addSuperHero(event.superhero, event.index);
       yield AddSuperheroSuccess(roster: currentState.roster);
+    }
+  }
+
+  Stream<RosterBuilderState> _addTactic(AddTactic event) async* {
+    var currentState = (state as BuildingRoster);
+    if (currentState.roster.containsTactic(event.tactic)) {
+      yield AddTacticFailed(roster: currentState.roster, tactic: event.tactic);
+    } else {
+      currentState.roster.addTacticCard(event.tactic, event.index);
+      yield AddTacticSuccess(roster: currentState.roster);
     }
   }
 }

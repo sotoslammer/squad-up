@@ -1,6 +1,7 @@
 import 'package:equatable/equatable.dart';
 import 'package:squadup/models/roster.dart';
 import 'package:squadup/models/superhero.dart';
+import 'package:squadup/models/tactic.dart';
 
 abstract class RosterBuilderEvent extends Equatable {
   const RosterBuilderEvent();
@@ -29,4 +30,14 @@ class AddSuperhero extends RosterBuilderEvent {
 
   @override
   List<Object> get props => [superhero, index];
+}
+
+class AddTactic extends RosterBuilderEvent {
+  final Tactic tactic;
+  final int index;
+
+  AddTactic(this.tactic, this.index);
+
+  @override
+  List<Object> get props => [tactic, index];
 }
